@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Simplest Budget Widget</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">Quickly glance at your remaining totals</string>
-    <string name="hello_world">Hello, world. I\'m dad.</string>
-</resources>
