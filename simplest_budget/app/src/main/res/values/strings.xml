@@ -3,4 +3,5 @@
     <string name="no_categories_message">Use the + icon to start creating your budget!</string>
     <string name="create_category_title">Define a Category for your Budget</string>
     <string name="loading_categories_message">Loading your budget…</string>
+    <string name="save_button_text">Save</string>
 </resources>

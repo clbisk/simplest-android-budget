@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-	namespace = "clbisk.simplest_budget"
+	namespace = "clbisk.simplestbudget"
 	compileSdk = 35
 
 	defaultConfig {
-		applicationId = "clbisk.simplest_budget"
+		applicationId = "clbisk.simplestbudget"
 		minSdk = 34
 		targetSdk = 35
 		versionCode = 1
