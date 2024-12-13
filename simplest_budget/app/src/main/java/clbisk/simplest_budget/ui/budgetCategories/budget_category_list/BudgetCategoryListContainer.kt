@@ -1,4 +1,4 @@
-package clbisk.simplest_budget.ui.screens.home.budget_category_list
+package clbisk.simplest_budget.ui.budgetCategories.budget_category_list
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -13,12 +13,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import clbisk.simplest_budget.R
 import androidx.lifecycle.viewmodel.compose.viewModel
-import clbisk.simplest_budget.ui.SimplestBudgetViewModelProvider
+import clbisk.simplest_budget.ui.AppViewModelProvider
 
 @Composable
-fun BudgetCategoryListContainer(
+fun BudgetCategoryListContainer (
 	contentPadding: PaddingValues = PaddingValues(0.dp),
-	viewModel: CategoryListViewModel = viewModel(factory = SimplestBudgetViewModelProvider.Factory)
+	viewModel: CategoryListViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
 	val categoryUiState by viewModel.categoryListState.collectAsState()
 	val categoryList = categoryUiState.categoryList

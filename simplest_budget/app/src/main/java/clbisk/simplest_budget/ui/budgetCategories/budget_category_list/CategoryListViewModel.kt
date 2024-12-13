@@ -1,4 +1,4 @@
-package clbisk.simplest_budget.ui.screens.home.budget_category_list
+package clbisk.simplest_budget.ui.budgetCategories.budget_category_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

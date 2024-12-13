@@ -1,4 +1,4 @@
-package clbisk.simplest_budget.ui.screens.home.budget_category_list
+package clbisk.simplest_budget.ui.budgetCategories.budget_category_list
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +14,7 @@ fun BudgetCategoryList(
 	LazyColumn(
 		contentPadding = contentPadding
 	) {
-		lazyItems(items = budgetCategoryList, key = { it.id }) {
+		lazyItems(items = budgetCategoryList, key = { it.categoryName }) {
 			category -> BudgetCategoryItem(category)
 		}
 	}

@@ -2,17 +2,17 @@ package clbisk.simplest_budget.ui.navigation
 
 import clbisk.simplest_budget.R
 
-interface NavigationScreen {
-	val route: String
+interface NavigationRoute {
+	val routeId: String
 	val titleResourceId: Int
 }
 
-object HomeScreen : NavigationScreen {
-	override val route = "home"
+object HomeRoute : NavigationRoute {
+	override val routeId = "home"
 	override val titleResourceId = R.string.app_name
 }
 
-object CreateBudgetCategoryScreen : NavigationScreen {
-	override val route = "createCategory"
+object CreateBudgetCategoryRoute : NavigationRoute {
+	override val routeId = "createCategory"
 	override val titleResourceId = R.string.create_category_title
 }

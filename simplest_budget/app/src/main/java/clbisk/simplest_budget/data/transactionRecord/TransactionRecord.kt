@@ -15,7 +15,7 @@ import java.sql.Timestamp
 	foreignKeys = [
 		ForeignKey(
 			entity = BudgetCategory::class,
-			parentColumns = ["budgetCategoryId"],
+			parentColumns = ["categoryName"],
 			childColumns = ["categoryId"],
 		)
 	], indices = [Index("categoryId")]

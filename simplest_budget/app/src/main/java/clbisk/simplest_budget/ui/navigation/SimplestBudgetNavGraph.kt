@@ -5,8 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import clbisk.simplest_budget.ui.screens.createCategory.CreateBudgetCategoryForm
-import clbisk.simplest_budget.ui.screens.home.Home
+import clbisk.simplest_budget.ui.home.HomeScreen
 
 @Composable
 fun SimplestBudgetNavGraph(
@@ -15,17 +14,12 @@ fun SimplestBudgetNavGraph(
 ) {
 	NavHost(
 		navController = navController,
-		startDestination = HomeScreen.route,
+		startDestination = HomeRoute.routeId,
 		modifier = modifier
 	) {
-		composable(route = HomeScreen.route) {
-			Home(
-				navToCreateCategory = { navController.navigate(CreateBudgetCategoryScreen.route) },
-			)
-		}
-		composable(route = CreateBudgetCategoryScreen.route) {
-			CreateBudgetCategoryForm(
-				navBack = { navController.popBackStack() }
+		composable(route = HomeRoute.routeId) {
+			HomeScreen(
+//				navToCreateCategory = { navController.navigate(CreateBudgetCategoryRoute.routeId) },
 			)
 		}
 	}

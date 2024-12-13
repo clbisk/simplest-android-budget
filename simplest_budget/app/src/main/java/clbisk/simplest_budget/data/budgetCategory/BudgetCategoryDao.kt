@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BudgetCategoryDao {
-	@Query("SELECT * from budgetCategories WHERE budgetCategoryId = :id")
-	fun getCategory(id: Int): Flow<BudgetCategory>
+	@Query("SELECT * from budgetCategories WHERE categoryName = :name")
+	fun getCategory(name: String): Flow<BudgetCategory>
 
 	@Query("SELECT * from budgetCategories")
 	fun getAllCategories(): Flow<List<BudgetCategory>>

@@ -5,12 +5,13 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import clbisk.simplest_budget.SimplestBudgetApp
-import clbisk.simplest_budget.ui.screens.home.budget_category_list.CategoryListViewModel
+import clbisk.simplest_budget.ui.budgetCategories.CategoryInputViewModel
+import clbisk.simplest_budget.ui.budgetCategories.budget_category_list.CategoryListViewModel
 
 fun CreationExtras.budgetApp(): SimplestBudgetApp =
 	(this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SimplestBudgetApp)
 
-object SimplestBudgetViewModelProvider {
+object AppViewModelProvider {
 	val Factory = viewModelFactory {
 		initializer {
 			CategoryListViewModel(budgetApp().container.budgetCategoriesRepository)

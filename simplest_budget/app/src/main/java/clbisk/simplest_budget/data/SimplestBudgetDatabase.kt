@@ -13,7 +13,7 @@ import clbisk.simplest_budget.data.transactionRecord.TransactionRecordDao
 
 @Database(
 	entities = [BudgetCategory::class, TransactionRecord::class],
-	version = 1,
+	version = 2,
 	exportSchema = false
 )
 @TypeConverters(TimestampConverters::class)
