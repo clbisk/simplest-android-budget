@@ -16,7 +16,7 @@ fun CreationExtras.budgetApp(): SimplestBudgetApp =
 
 /**
  * factory for viewModels
- * provides relevant data repos + save states
+ * provides relevant data repos
  * */
 object AppViewModelProvider {
 	val Factory = viewModelFactory {
@@ -32,10 +32,7 @@ object AppViewModelProvider {
 
 		// edit category viewModel
 		initializer {
-			EditCategoryViewModel(
-				savedStateHandle = this.createSavedStateHandle(),
-				categoryRepository = budgetApp().container.budgetCategoriesRepository,
-			)
+			EditCategoryViewModel(budgetApp().container.budgetCategoriesRepository,)
 		}
 	}
 }

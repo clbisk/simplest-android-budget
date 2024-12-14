@@ -7,5 +7,7 @@ import clbisk.simplestbudget.ui.budgetcategories.create.CreateCategoryFormContai
 fun CreateBudgetCategoryScreen(
 	navUp: () -> Unit,
 ) {
-	CreateCategoryFormContainer()
+	CreateCategoryFormContainer(
+		navUp = navUp
+	)
 }
