@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.ui.budgetcategories.create
+package clbisk.simplestbudget.ui.budgetcategories.modify.create
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button

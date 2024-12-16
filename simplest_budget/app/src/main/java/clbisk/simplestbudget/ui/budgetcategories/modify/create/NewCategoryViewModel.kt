@@ -1,10 +1,11 @@
-package clbisk.simplestbudget.ui.budgetcategories.create
+package clbisk.simplestbudget.ui.budgetcategories.modify.create
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
+import clbisk.simplestbudget.ui.parseStringAsInt
 
 class NewCategoryViewModel(
 	private val categoryRepository: BudgetCategoriesRepository
@@ -24,12 +25,8 @@ class NewCategoryViewModel(
 		_inputValid.value = validateInput()
 	}
 
-	private fun parseLimitInput(str: String): Int? {
-		return str.toIntOrNull()
-	}
-
 	fun onLimitUpdate(limitAsStr: String) {
-		val limit = parseLimitInput(limitAsStr)
+		val limit = parseStringAsInt(limitAsStr)
 		if (limit !== null) {
 			_limitInput.value = limit
 		}

@@ -7,8 +7,8 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import clbisk.simplestbudget.SimplestBudgetApp
 import clbisk.simplestbudget.ui.budgetcategories.list.CategoryListViewModel
-import clbisk.simplestbudget.ui.budgetcategories.edit.EditCategoryViewModel
-import clbisk.simplestbudget.ui.budgetcategories.create.NewCategoryViewModel
+import clbisk.simplestbudget.ui.budgetcategories.modify.edit.EditCategoryViewModel
+import clbisk.simplestbudget.ui.budgetcategories.modify.create.NewCategoryViewModel
 
 /** provide budget app instance to viewModel factory */
 fun CreationExtras.budgetApp(): SimplestBudgetApp =
@@ -32,7 +32,10 @@ object AppViewModelProvider {
 
 		// edit category viewModel
 		initializer {
-			EditCategoryViewModel(budgetApp().container.budgetCategoriesRepository,)
+			EditCategoryViewModel(
+				this.createSavedStateHandle(),
+				budgetApp().container.budgetCategoriesRepository
+			)
 		}
 	}
 }

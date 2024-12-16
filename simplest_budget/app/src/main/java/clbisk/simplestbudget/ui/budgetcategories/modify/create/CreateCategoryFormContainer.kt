@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.ui.budgetcategories.create
+package clbisk.simplestbudget.ui.budgetcategories.modify.create
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
