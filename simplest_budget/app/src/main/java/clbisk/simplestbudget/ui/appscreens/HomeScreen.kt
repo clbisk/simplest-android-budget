@@ -13,7 +13,8 @@ import clbisk.simplestbudget.ui.budgetcategories.list.BudgetCategoryListContaine
 
 @Composable
 fun HomeScreen(
-	navToCreateCategory: () -> Unit
+	navToCreateCategory: () -> Unit,
+	navToEditCategory: (String) -> Unit,
 ) {
 	Scaffold(
 		floatingActionButton = {
@@ -29,6 +30,7 @@ fun HomeScreen(
 		}
 	) { innerPadding ->
 		BudgetCategoryListContainer(
+			navToEditCategory,
 			contentPadding = innerPadding,
 		)
 	}

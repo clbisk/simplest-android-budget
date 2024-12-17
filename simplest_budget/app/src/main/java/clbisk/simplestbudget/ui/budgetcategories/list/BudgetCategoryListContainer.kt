@@ -17,6 +17,7 @@ import clbisk.simplestbudget.ui.AppViewModelProvider
 
 @Composable
 fun BudgetCategoryListContainer (
+	navToEditCategory: (String) -> Unit,
 	contentPadding: PaddingValues = PaddingValues(0.dp),
 	viewModel: CategoryListViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -40,6 +41,7 @@ fun BudgetCategoryListContainer (
 	} else {
 		BudgetCategoryList(
 			categoryList,
+			onItemClick = { navToEditCategory(it.categoryName) },
 			contentPadding = contentPadding
 		)
 	}

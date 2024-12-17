@@ -22,7 +22,7 @@ fun AppNavGraph(
 ) {
 	NavHost(
 		navController = navController,
-		startDestination = AppRoutes.HOME,
+		startDestination = AppRoutes.HOME.name,
 		modifier = modifier
 	) {
 		composable(route = AppRoutes.HOME.name) {
@@ -30,6 +30,9 @@ fun AppNavGraph(
 				navToCreateCategory = {
 					navController.navigate(AppRoutes.CREATE_CAT.name)
 									  },
+				navToEditCategory = {
+					navController.navigate("${AppRoutes.EDIT_CAT.name}/${it}")
+				}
 			)
 		}
 		composable(route = AppRoutes.CREATE_CAT.name) {
@@ -38,7 +41,7 @@ fun AppNavGraph(
 			)
 		}
 		composable(
-			route = "${AppRoutes.EDIT_CAT.name}/categoryName",
+			route = "${AppRoutes.EDIT_CAT.name}/{categoryName}",
 			arguments = listOf(navArgument("categoryName") {
 				type = NavType.StringType
 			})
