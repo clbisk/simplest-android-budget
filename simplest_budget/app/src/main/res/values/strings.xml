@@ -4,4 +4,8 @@
     <string name="create_category_title">Define a Category for your Budget</string>
     <string name="loading_categories_message">Loading your budget…</string>
     <string name="save_button_text">Save</string>
+    <string name="budget_label">Budget Tracker</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

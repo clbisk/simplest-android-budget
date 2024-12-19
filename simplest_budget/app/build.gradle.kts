@@ -2,7 +2,8 @@ plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.compose)
-	id("com.google.devtools.ksp") version "2.1.0-1.0.29"
+	alias(libs.plugins.ksp)
+	alias(libs.plugins.hilt)
 }
 
 android {
@@ -17,6 +18,7 @@ android {
 		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		vectorDrawables.useSupportLibrary = true
 	}
 
 	buildTypes {
@@ -37,27 +39,40 @@ android {
 	}
 	buildFeatures {
 		compose = true
+		viewBinding = true
+	}
+	composeOptions {
+		kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
 	}
 }
 
 dependencies {
 	// Compose
-	implementation(platform(libs.androidx.compose.bom))
-	implementation(libs.androidx.activity.compose)
 	implementation(libs.material3)
 	implementation(libs.ui)
 	implementation(libs.ui.tooling)
 	implementation(libs.ui.tooling.preview)
-	implementation(libs.androidx.lifecycle.runtime.ktx)
 	implementation(libs.androidx.lifecycle.viewmodel.compose)
 	implementation(libs.androidx.navigation.compose)
 
 	// Room
 	implementation(libs.androidx.room.runtime)
-	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.runtime.livedata)
+	implementation(libs.androidx.glance.preview)
 	ksp(libs.androidx.room.compiler)
 	implementation(libs.androidx.room.ktx)
+
+	// Glance
+	implementation(libs.glance.appwidget)
+	implementation(libs.glance.material)
+	implementation(libs.hilt.android)
+	implementation(libs.hilt.navigation.compose)
+	ksp(libs.hilt.compiler)
+	// Glance test
+	androidTestImplementation(libs.hilt.android.testing)
+	androidTestAnnotationProcessor(libs.hilt.compiler)
+	testImplementation(libs.hilt.android.testing)
+	testAnnotationProcessor(libs.hilt.compiler)
 
 	// included with new empty activity
 	implementation(libs.androidx.core.ktx)

@@ -7,7 +7,9 @@ import androidx.navigation.compose.rememberNavController
 import clbisk.simplestbudget.data.SimplestBudgetAppContainer
 import clbisk.simplestbudget.data.SimplestBudgetDataContainer
 import clbisk.simplestbudget.ui.navigation.AppNavGraph
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class SimplestBudgetApp : Application() {
 	lateinit var container: SimplestBudgetAppContainer
 

@@ -10,6 +10,10 @@ import clbisk.simplestbudget.data.budgetCategory.BudgetCategoryDao
 import clbisk.simplestbudget.data.transactionRecord.TimestampConverters
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecord
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordDao
+import javax.inject.Qualifier
+
+@Qualifier
+annotation class AppCoroutineScope
 
 @Database(
 	entities = [BudgetCategory::class, TransactionRecord::class],
