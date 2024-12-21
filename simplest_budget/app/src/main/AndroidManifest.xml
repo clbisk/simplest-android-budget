@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimplestBudget">
         <receiver
-            android:name=".widget.NewAppWidget"
+            android:name=".widget.SimplestBudgetWidgetReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -20,7 +20,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/new_app_widget_info" />
+                android:resource="@xml/simplest_budget_widget_info" />
         </receiver>
 
         <activity

@@ -10,20 +10,24 @@ import clbisk.simplestbudget.data.budgetCategory.BudgetCategoryDao
 import clbisk.simplestbudget.data.transactionRecord.TimestampConverters
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecord
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordDao
+import clbisk.simplestbudget.widget.model.WidgetModel
+import clbisk.simplestbudget.widget.model.WidgetModelDao
 import javax.inject.Qualifier
 
-@Qualifier
-annotation class AppCoroutineScope
-
 @Database(
-	entities = [BudgetCategory::class, TransactionRecord::class],
-	version = 2,
-	exportSchema = false
+	entities = [
+		BudgetCategory::class,
+		TransactionRecord::class,
+		WidgetModel::class,
+   ],
+	version = 3,
+	exportSchema = false,
 )
 @TypeConverters(TimestampConverters::class)
 abstract class SimplestBudgetDatabase : RoomDatabase() {
 	abstract fun budgetCategoryDao(): BudgetCategoryDao
 	abstract fun transactionRecordDao(): TransactionRecordDao
+	abstract fun widgetDao(): WidgetModelDao
 
 	companion object {
 		@Volatile
