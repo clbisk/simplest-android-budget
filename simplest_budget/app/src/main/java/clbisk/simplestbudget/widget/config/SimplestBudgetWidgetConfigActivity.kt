@@ -13,14 +13,14 @@ import androidx.glance.appwidget.updateAll
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.theme.SimplestBudgetTheme
 import clbisk.simplestbudget.widget.SimplestBudgetWidget
-import clbisk.simplestbudget.widget.model.WidgetModel
-import clbisk.simplestbudget.widget.model.WidgetModelRepository
+import clbisk.simplestbudget.widget.data.WidgetModel
+import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SimplestBudgetConfigActivity(): ComponentActivity() {
+class SimplestBudgetConfigActivity: ComponentActivity() {
 	@Inject
 	lateinit var widgetModelRepository: WidgetModelRepository
 

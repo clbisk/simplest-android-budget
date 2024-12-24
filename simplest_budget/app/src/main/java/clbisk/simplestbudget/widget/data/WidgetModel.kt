@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.widget.model
+package clbisk.simplestbudget.widget.data
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -28,4 +28,7 @@ sealed interface WidgetState {
 data class WidgetModel(
 	@PrimaryKey val widgetId: Int,
 	val forCategoryName: String,
+
+	val remainingThisMonthDollars: Int,
+	val remainingThisMonthCents: Int,
 ) : WidgetState

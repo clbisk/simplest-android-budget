@@ -1,8 +1,6 @@
 package clbisk.simplestbudget.data
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
@@ -10,9 +8,8 @@ import clbisk.simplestbudget.data.budgetCategory.BudgetCategoryDao
 import clbisk.simplestbudget.data.transactionRecord.TimestampConverters
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecord
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordDao
-import clbisk.simplestbudget.widget.model.WidgetModel
-import clbisk.simplestbudget.widget.model.WidgetModelDao
-import javax.inject.Qualifier
+import clbisk.simplestbudget.widget.data.WidgetModel
+import clbisk.simplestbudget.widget.data.WidgetModelDao
 
 @Database(
 	entities = [
@@ -20,7 +17,7 @@ import javax.inject.Qualifier
 		TransactionRecord::class,
 		WidgetModel::class,
    ],
-	version = 4,
+	version = 5,
 	exportSchema = false,
 )
 @TypeConverters(TimestampConverters::class)

@@ -11,12 +11,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TransactionRecordDao {
 	@Query(
-		"SELECT * from transactionRecords WHERE transactionRecordId = :id"
+		"SELECT * FROM transactionRecords WHERE transactionRecordId = :id"
 	)
 	fun getTransaction(id: Int): Flow<TransactionRecord>
 
-	@Query("SELECT * from transactionRecords")
+	@Query("SELECT * FROM transactionRecords")
 	fun getAllTransactions(): Flow<List<TransactionRecord>>
+
+	@Query("SELECT * FROM transactionRecords where categoryId = :categoryName")
+	fun getTransactionsForCategory(categoryName: String): Flow<List<TransactionRecord>>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	suspend fun insert(category: TransactionRecord)

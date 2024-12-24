@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.widget.model
+package clbisk.simplestbudget.widget.data
 
 import androidx.room.Dao
 import androidx.room.Delete

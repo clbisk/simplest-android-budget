@@ -2,13 +2,9 @@ package clbisk.simplestbudget.data
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import clbisk.simplestbudget.data.SimplestBudgetDatabase
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoryDao
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordDao
-import clbisk.simplestbudget.widget.model.WidgetModelDao
-import dagger.Binds
+import clbisk.simplestbudget.widget.data.WidgetModelDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

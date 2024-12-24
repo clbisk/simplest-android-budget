@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.widget.model
+package clbisk.simplestbudget.widget.data
 
 import android.content.Context
 import androidx.glance.appwidget.GlanceAppWidgetManager
@@ -71,7 +71,8 @@ class WidgetModelRepository @Inject internal constructor(
 		}
 	}
 
-	fun updateBudgetForCategory(categoryName: String) {
+	// TODO: use
+	fun updateBudgetForCategory(categoryName: String, remainingThisMonthDollars: Int, remainingThisMonthCents: Int) {
 		coroutineScope.launch {
 			widgetModelDao.modelsForCategory(categoryName).forEach { model ->
 				if (model != null) {
@@ -79,6 +80,8 @@ class WidgetModelRepository @Inject internal constructor(
 						WidgetModel(
 							model.widgetId,
 							model.forCategoryName,
+							remainingThisMonthDollars,
+							remainingThisMonthCents,
 						),
 					)
 					SimplestBudgetWidget().updateAll(appContext)

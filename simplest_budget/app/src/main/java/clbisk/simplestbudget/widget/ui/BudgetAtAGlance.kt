@@ -14,10 +14,13 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 
 @Composable
-fun BudgetAtAGlance() {
+fun BudgetAtAGlance(
+	categoryName: String? = null,
+) {
 	Scaffold(
 		backgroundColor = GlanceTheme.colors.widgetBackground,
 		modifier = GlanceModifier.fillMaxSize(),
+		titleBar = { BudgetWidgetTitle(categoryName) },
 	) {
 		Column(
 			modifier = GlanceModifier.fillMaxSize(),

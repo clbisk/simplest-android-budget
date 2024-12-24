@@ -7,7 +7,7 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.provideContent
-import clbisk.simplestbudget.widget.model.WidgetModelRepository
+import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
