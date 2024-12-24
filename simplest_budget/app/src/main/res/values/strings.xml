@@ -8,4 +8,7 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+    <string name="allCategoriesTitle">Remaining This Month</string>
+    <string name="setttingsIconDescription">Settings</string>
+    <string name="widget_config_title">Select a Budget Category to track</string>
 </resources>

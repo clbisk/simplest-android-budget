@@ -33,7 +33,7 @@ class WidgetModelRepository @Inject internal constructor(
 
 	companion object {
 		fun get(applicationContext: Context): WidgetModelRepository {
-			var widgetModelRepositoryEntrypoint: WidgetModelRepositoryEntrypoint = EntryPoints.get(
+			val widgetModelRepositoryEntrypoint: WidgetModelRepositoryEntrypoint = EntryPoints.get(
 				applicationContext,
 				WidgetModelRepositoryEntrypoint::class.java,
 			)
@@ -71,7 +71,7 @@ class WidgetModelRepository @Inject internal constructor(
 		}
 	}
 
-	fun updateBudgetForCategory(categoryName: String, spendingLimit: Int, transactionsTotal: Int) {
+	fun updateBudgetForCategory(categoryName: String) {
 		coroutineScope.launch {
 			widgetModelDao.modelsForCategory(categoryName).forEach { model ->
 				if (model != null) {
@@ -79,8 +79,6 @@ class WidgetModelRepository @Inject internal constructor(
 						WidgetModel(
 							model.widgetId,
 							model.forCategoryName,
-							spendingLimit,
-							transactionsTotal,
 						),
 					)
 					SimplestBudgetWidget().updateAll(appContext)

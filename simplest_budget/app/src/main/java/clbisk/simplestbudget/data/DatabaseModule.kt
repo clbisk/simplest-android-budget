@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import clbisk.simplestbudget.data.SimplestBudgetDatabase
+import clbisk.simplestbudget.data.budgetCategory.BudgetCategoryDao
+import clbisk.simplestbudget.data.transactionRecord.TransactionRecordDao
 import clbisk.simplestbudget.widget.model.WidgetModelDao
 import dagger.Binds
 import dagger.Module
@@ -32,6 +34,12 @@ object DatabaseModule {
 
 	@Provides
 	fun providesWidgetModelDao(database: SimplestBudgetDatabase): WidgetModelDao = database.widgetDao()
+
+	@Provides
+	fun providesBudgetCategoryDao(database: SimplestBudgetDatabase): BudgetCategoryDao = database.budgetCategoryDao()
+
+	@Provides
+	fun providesTransactionRecordDao(database: SimplestBudgetDatabase): TransactionRecordDao = database.transactionRecordDao()
 
 	@Provides
 	@Singleton

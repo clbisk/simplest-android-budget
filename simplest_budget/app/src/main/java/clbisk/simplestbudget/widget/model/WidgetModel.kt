@@ -28,6 +28,4 @@ sealed interface WidgetState {
 data class WidgetModel(
 	@PrimaryKey val widgetId: Int,
 	val forCategoryName: String,
-	val spendingLimit: Int,
-	val transactionsTotal: Int,
 ) : WidgetState

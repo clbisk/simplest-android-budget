@@ -15,7 +15,7 @@ fun SimplestBudgetWidgetContent(
 	widgetId: Int,
 ) {
 	val model = repo.loadModel(widgetId).collectAsState(Loading).value
-	val context = LocalContext.current
+//	val context = LocalContext.current
 
 	when (model) {
 		is WidgetModel -> {
