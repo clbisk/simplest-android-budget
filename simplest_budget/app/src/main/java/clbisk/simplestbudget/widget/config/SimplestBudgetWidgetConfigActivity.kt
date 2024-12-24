@@ -17,9 +17,11 @@ import clbisk.simplestbudget.widget.model.WidgetModel
 import clbisk.simplestbudget.widget.model.WidgetModelRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SimplestBudgetConfigActivity(): ComponentActivity() {
+	@Inject
 	lateinit var widgetModelRepository: WidgetModelRepository
 
 	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory) {

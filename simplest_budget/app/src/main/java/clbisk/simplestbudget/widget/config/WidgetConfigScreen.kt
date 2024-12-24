@@ -26,7 +26,7 @@ fun WidgetConfigContent(
 	LazyColumn(
 		modifier = Modifier.fillMaxSize(),
 		contentPadding = contentPadding,
-		) {
+	) {
 		items(categoryList) {
 			BudgetCategoryItem(it,
 				itemModifier = Modifier.clickable {

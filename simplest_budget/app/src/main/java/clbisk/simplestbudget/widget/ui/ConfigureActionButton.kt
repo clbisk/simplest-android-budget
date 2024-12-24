@@ -17,7 +17,7 @@ fun ConfigureActionButton(widgetId: Int) {
 	CircleIconButton(
 		backgroundColor = null,
 		imageProvider = ImageProvider(R.drawable.settings_gear),
-		contentDescription = LocalContext.current.getString(R.string.setttingsIconDescription),
+		contentDescription = LocalContext.current.getString(R.string.settingsIconDescription),
 		onClick = actionStartActivity<SimplestBudgetConfigActivity>(
 			parameters = actionParametersOf(widgetIdKey to widgetId)
 		),

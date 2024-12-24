@@ -18,7 +18,6 @@ fun BudgetAtAGlance() {
 	Scaffold(
 		backgroundColor = GlanceTheme.colors.widgetBackground,
 		modifier = GlanceModifier.fillMaxSize(),
-		titleBar = { BudgetWidgetTitle() },
 	) {
 		Column(
 			modifier = GlanceModifier.fillMaxSize(),

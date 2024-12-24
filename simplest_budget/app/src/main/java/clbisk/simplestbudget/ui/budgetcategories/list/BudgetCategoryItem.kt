@@ -1,19 +1,17 @@
 package clbisk.simplestbudget.ui.budgetcategories.list
 
-import androidx.compose.runtime.Composable
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
-import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.integerResource
 import clbisk.simplestbudget.R
+import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.formatCurrency
 
 @Composable

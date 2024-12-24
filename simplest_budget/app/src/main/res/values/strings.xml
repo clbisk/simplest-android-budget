@@ -9,7 +9,7 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Quickly view the amount remaining in your budget this month</string>
     <string name="allCategoriesTitle">Remaining This Month</string>
-    <string name="setttingsIconDescription">Settings</string>
+    <string name="settingsIconDescription">Settings</string>
     <string name="widget_config_title">Select a Budget Category to track</string>
     <string name="budget_widget_name">Track your Remaining Budget</string>
 </resources>
