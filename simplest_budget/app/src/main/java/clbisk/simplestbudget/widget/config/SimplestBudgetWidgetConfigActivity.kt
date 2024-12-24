@@ -20,12 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.glance.ImageProvider
 import androidx.glance.appwidget.components.TitleBar
 import androidx.glance.appwidget.updateAll
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import clbisk.simplestbudget.R
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.budgetCategory.OfflineBudgetCategoriesRepository
-import clbisk.simplestbudget.ui.AppViewModelProvider
 import clbisk.simplestbudget.ui.budgetcategories.list.BudgetCategoryItem
 import clbisk.simplestbudget.ui.theme.SimplestBudgetTheme
 import clbisk.simplestbudget.widget.SimplestBudgetWidget
@@ -36,12 +35,11 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SimplestBudgetConfigActivity: ComponentActivity() {
-	@Inject
+class SimplestBudgetConfigActivity @Inject constructor(
+	widgetModelRepository: WidgetModelRepository,
+	budgetCategoriesRepository: OfflineBudgetCategoriesRepository,
+): ComponentActivity() {
 	lateinit var widgetModelRepository: WidgetModelRepository
-
-	@Inject
-	lateinit var budgetCategoriesRepository: OfflineBudgetCategoriesRepository
 
 	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory) {
 		runBlocking {
@@ -98,7 +96,7 @@ fun WidgetConfigContent(
 	innerPadding: PaddingValues,
 	appWidgetId: Int,
 	onCategoryClick: (Int, BudgetCategory) -> Unit,
-	viewModel: WidgetConfigViewModel = viewModel(factory = AppViewModelProvider.Factory),
+	viewModel: WidgetConfigViewModel = hiltViewModel()
 ) {
 	val categoryUiState by viewModel.categoryListState.collectAsState()
 	val categoryList = categoryUiState.categoryList

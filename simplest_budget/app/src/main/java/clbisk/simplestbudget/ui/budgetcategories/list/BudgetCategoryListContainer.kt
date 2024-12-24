@@ -11,15 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import clbisk.simplestbudget.R
-import androidx.lifecycle.viewmodel.compose.viewModel
-import clbisk.simplestbudget.ui.AppViewModelProvider
 
 @Composable
 fun BudgetCategoryListContainer (
 	navToEditCategory: (String) -> Unit,
 	contentPadding: PaddingValues = PaddingValues(0.dp),
-	viewModel: CategoryListViewModel = viewModel(factory = AppViewModelProvider.Factory)
+	viewModel: CategoryListViewModel = hiltViewModel()
 ) {
 	val categoryUiState by viewModel.categoryListState.collectAsState()
 	val categoryList = categoryUiState.categoryList

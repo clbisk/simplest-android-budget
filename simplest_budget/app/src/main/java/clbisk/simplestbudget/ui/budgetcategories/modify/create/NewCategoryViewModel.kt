@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.parseStringAsInt
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class NewCategoryViewModel(
+@HiltViewModel
+class NewCategoryViewModel @Inject constructor(
 	private val categoryRepository: BudgetCategoriesRepository
 ) : ViewModel() {
 	private val _nameInput = MutableLiveData("")

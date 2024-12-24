@@ -4,14 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import clbisk.simplestbudget.ui.AppViewModelProvider
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun EditCategoryFormContainer(
 	navUp: () -> Unit,
-	viewModel: EditCategoryViewModel = viewModel(factory = AppViewModelProvider.Factory),
+	viewModel: EditCategoryViewModel = hiltViewModel()
 ) {
 	val coroutineScope = rememberCoroutineScope()
 

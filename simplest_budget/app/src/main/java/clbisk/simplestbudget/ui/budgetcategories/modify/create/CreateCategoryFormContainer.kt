@@ -4,14 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import clbisk.simplestbudget.ui.AppViewModelProvider
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun CreateCategoryFormContainer(
 	navUp: () -> Unit,
-	viewModel: NewCategoryViewModel = viewModel(factory = AppViewModelProvider.Factory),
+	viewModel: NewCategoryViewModel = hiltViewModel(),
 ) {
 	val coroutineScope = rememberCoroutineScope()
 

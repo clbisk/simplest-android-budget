@@ -30,6 +30,7 @@ object DatabaseModule {
 	@Singleton
 	fun providesAppDatabase(@ApplicationContext context: Context): SimplestBudgetDatabase =
 		Room.databaseBuilder(context, SimplestBudgetDatabase::class.java, "app.db")
+			.fallbackToDestructiveMigration()
 			.build()
 
 	@Provides

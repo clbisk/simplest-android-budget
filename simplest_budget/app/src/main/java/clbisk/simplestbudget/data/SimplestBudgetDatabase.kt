@@ -20,7 +20,7 @@ import javax.inject.Qualifier
 		TransactionRecord::class,
 		WidgetModel::class,
    ],
-	version = 3,
+	version = 4,
 	exportSchema = false,
 )
 @TypeConverters(TimestampConverters::class)
@@ -28,22 +28,4 @@ abstract class SimplestBudgetDatabase : RoomDatabase() {
 	abstract fun budgetCategoryDao(): BudgetCategoryDao
 	abstract fun transactionRecordDao(): TransactionRecordDao
 	abstract fun widgetDao(): WidgetModelDao
-
-	companion object {
-		@Volatile
-		private var Instance: SimplestBudgetDatabase? = null
-
-		fun getDatabase(context: Context): SimplestBudgetDatabase {
-			return Instance ?: synchronized(this) {
-				Room.databaseBuilder(
-					context,
-					SimplestBudgetDatabase::class.java,
-					"simplest_budget_database"
-				)
-					.fallbackToDestructiveMigration()
-					.build()
-					.also { Instance = it }
-			}
-		}
-	}
 }
