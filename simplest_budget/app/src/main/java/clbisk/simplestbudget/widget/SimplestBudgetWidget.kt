@@ -8,9 +8,20 @@ import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.provideContent
 import clbisk.simplestbudget.widget.model.WidgetModelRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SimplestBudgetWidgetReceiver : GlanceAppWidgetReceiver() {
 	override val glanceAppWidget: GlanceAppWidget = SimplestBudgetWidget()
+
+	@Inject
+	lateinit var repository: WidgetModelRepository
+
+	override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+		super.onDeleted(context, appWidgetIds)
+		repository.cleanupWidgetModels(context)
+	}
 }
 
 class SimplestBudgetWidget : GlanceAppWidget() {
@@ -22,7 +33,7 @@ class SimplestBudgetWidget : GlanceAppWidget() {
 			GlanceTheme {
 				SimplestBudgetWidgetContent(
 					repo = widgetRepo,
-					widgetId
+					widgetId,
 				)
 			}
 		}
