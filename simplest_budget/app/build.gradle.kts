@@ -4,6 +4,7 @@ plugins {
 	alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.ksp)
 	alias(libs.plugins.hilt)
+	alias(libs.plugins.serialization)
 }
 
 android {
@@ -59,6 +60,7 @@ dependencies {
 	implementation(libs.androidx.room.runtime)
 	implementation(libs.androidx.runtime.livedata)
 	implementation(libs.androidx.glance.preview)
+	implementation(libs.androidx.material3.adaptive.navigation.suite.android)
 	ksp(libs.androidx.room.compiler)
 	implementation(libs.androidx.room.ktx)
 
@@ -73,6 +75,9 @@ dependencies {
 	androidTestAnnotationProcessor(libs.hilt.compiler)
 	testImplementation(libs.hilt.android.testing)
 	testAnnotationProcessor(libs.hilt.compiler)
+
+	// nav serialization
+	implementation(libs.serialization)
 
 	// included with new empty activity
 	implementation(libs.androidx.core.ktx)

@@ -1,7 +1,6 @@
-package clbisk.simplestbudget.ui.appscreens
+package clbisk.simplestbudget.ui.budgetcategories.modify.create
 
 import androidx.compose.runtime.Composable
-import clbisk.simplestbudget.ui.budgetcategories.modify.create.CreateCategoryFormContainer
 
 @Composable
 fun CreateBudgetCategoryScreen(

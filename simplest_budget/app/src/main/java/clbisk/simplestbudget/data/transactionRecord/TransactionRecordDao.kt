@@ -18,7 +18,7 @@ interface TransactionRecordDao {
 	@Query("SELECT * FROM transactionRecords")
 	fun getAllTransactions(): Flow<List<TransactionRecord>>
 
-	@Query("SELECT * FROM transactionRecords where categoryId = :categoryName")
+	@Query("SELECT * FROM transactionRecords where inCategoryName = :categoryName")
 	fun getTransactionsForCategory(categoryName: String): Flow<List<TransactionRecord>>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
