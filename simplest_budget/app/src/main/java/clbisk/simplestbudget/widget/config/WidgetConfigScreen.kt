@@ -16,7 +16,7 @@ import clbisk.simplestbudget.ui.budgetcategories.list.BudgetCategoryItem
 @Composable
 fun WidgetConfigContent(
 	appWidgetId: Int,
-	onCategoryClick: (Int, BudgetCategory) -> Unit,
+	onCategoryClick: (Int, BudgetCategory, Int) -> Unit,
 	contentPadding: PaddingValues,
 	viewModel: WidgetConfigViewModel = hiltViewModel(),
 ) {
@@ -33,6 +33,7 @@ fun WidgetConfigContent(
 					onCategoryClick(
 						appWidgetId,
 						it,
+						it.spendingLimit,
 					)
 				}
 			)

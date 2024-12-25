@@ -17,9 +17,9 @@ fun AppNavGraph(
 	) {
 		NavHost(
 			navController,
-			startDestination = Route.Home,
+			startDestination = START_DESTINATION.name,
 		) {
-			for (dest in TopLevelDestination.entries) {
+			TopLevelDestination.entries.map { dest ->
 				val destArgs = NavArgs[dest.route]
 
 				val argNames = if (!destArgs.isNullOrEmpty()) {
@@ -28,7 +28,7 @@ fun AppNavGraph(
 				val route = dest.name + argNames
 
 				val destScreen = AppScreens[dest.route]
-					?: throw Exception("NAV GRAPH ERROR -- Screen for destination not specified!")
+					?: throw Exception("NAV GRAPH ERROR -- Screen for ${dest.name} not specified!")
 
 				composable(route) {
 					destScreen(navController)

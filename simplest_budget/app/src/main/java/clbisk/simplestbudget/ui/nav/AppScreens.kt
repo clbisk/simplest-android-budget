@@ -5,10 +5,12 @@ import androidx.navigation.NavController
 import clbisk.simplestbudget.ui.HomeScreen
 import clbisk.simplestbudget.ui.budgetcategories.modify.create.CreateBudgetCategoryScreen
 import clbisk.simplestbudget.ui.budgetcategories.modify.edit.EditBudgetCategoryScreen
-import clbisk.simplestbudget.ui.transactions.TransactionsForCategoryList
+import clbisk.simplestbudget.ui.transactions.create.CreateTransactionScreen
+import clbisk.simplestbudget.ui.transactions.edit.EditTransactionScreen
+import clbisk.simplestbudget.ui.transactions.list.TransactionsForCategoryList
 
 fun navToCreateCategory(navController: NavController): () -> Unit = {
-	navController.navigate(Route.CreateCategory)
+	navController.navigate(TopLevelDestination.CreateCategory.name)
 }
 
 fun navToEditCategory(navController: NavController): (categoryName: String) -> Unit = {
@@ -32,5 +34,7 @@ val AppScreens: Map<Route, @Composable (navController: NavController) -> Unit> =
 			navUp = navController::navigateUp
 		)
 	},
-	Route.TransactionsForCat to { TransactionsForCategoryList() }
+	Route.TransactionsForCat to { TransactionsForCategoryList() },
+	Route.CreateTransaction to { CreateTransactionScreen() },
+	Route.EditTransaction to { EditTransactionScreen() },
 )

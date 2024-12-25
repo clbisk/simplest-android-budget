@@ -24,12 +24,14 @@ class SimplestBudgetConfigActivity: ComponentActivity() {
 	@Inject
 	lateinit var widgetModelRepository: WidgetModelRepository
 
-	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory) {
+	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory, spendingLimit: Int) {
 		runBlocking {
 			widgetModelRepository.createOrUpdate(
 				WidgetModel(
 					appWidgetId,
 					category.categoryName,
+					spendingLimit,
+					0,
 				),
 			)
 

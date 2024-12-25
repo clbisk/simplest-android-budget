@@ -32,3 +32,5 @@ enum class TopLevelDestination(
 	CreateTransaction(Route.CreateTransaction),
 	EditTransaction(Route.EditTransaction),
 }
+
+val START_DESTINATION = TopLevelDestination.Home
