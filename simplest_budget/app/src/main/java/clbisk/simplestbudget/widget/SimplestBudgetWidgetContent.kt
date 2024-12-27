@@ -13,9 +13,7 @@ fun SimplestBudgetWidgetContent(
 	repo: WidgetModelRepository,
 	widgetId: Int,
 ) {
-	val model = repo.loadModel(widgetId).collectAsState(Loading).value
-
-	when (model) {
+	when (val model = repo.loadModel(widgetId).collectAsState(Loading).value) {
 		is WidgetModel -> {
 			BudgetAtAGlance(categoryName = model.forCategoryName)
 		}

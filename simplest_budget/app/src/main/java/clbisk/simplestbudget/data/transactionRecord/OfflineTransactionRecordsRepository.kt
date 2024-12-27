@@ -1,8 +1,11 @@
 package clbisk.simplestbudget.data.transactionRecord
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class OfflineTransactionRecordsRepository(
+@Singleton
+class OfflineTransactionRecordsRepository @Inject constructor(
 	private val transactionRecordDao: TransactionRecordDao
 ) : TransactionRecordsRepository {
 	override fun getTransaction(id: Int): Flow<TransactionRecord> =transactionRecordDao.getTransaction(id)

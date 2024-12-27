@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.ui.transactions.edit
+package clbisk.simplestbudget.ui.transactions.modify.edit
 
 import androidx.compose.runtime.Composable
 

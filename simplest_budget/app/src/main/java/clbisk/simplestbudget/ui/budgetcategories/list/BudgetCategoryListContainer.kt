@@ -16,9 +16,9 @@ import clbisk.simplestbudget.R
 
 @Composable
 fun BudgetCategoryListContainer (
-	navToEditCategory: (String) -> Unit,
+	navToTransactionsListFor: (String) -> Unit,
 	contentPadding: PaddingValues = PaddingValues(0.dp),
-	viewModel: CategoryListViewModel = hiltViewModel()
+	viewModel: CategoryListViewModel = hiltViewModel(),
 ) {
 	val categoryUiState by viewModel.categoryListState.collectAsState()
 	val categoryList = categoryUiState.categoryList
@@ -40,7 +40,7 @@ fun BudgetCategoryListContainer (
 	} else {
 		BudgetCategoryList(
 			categoryList,
-			onItemClick = { navToEditCategory(it.categoryName) },
+			onItemClick = { navToTransactionsListFor(it.categoryName) },
 			contentPadding = contentPadding
 		)
 	}
