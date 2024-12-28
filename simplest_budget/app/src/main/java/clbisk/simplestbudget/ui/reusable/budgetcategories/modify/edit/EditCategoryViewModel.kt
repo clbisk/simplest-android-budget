@@ -103,7 +103,8 @@ class EditCategoryViewModel @Inject constructor(
 
 				widgetRepository.updateBudgetForCategory(
 					categoryName = editedCategory.categoryName,
-					remainingThisMonth = editedCategory.spendingLimit - spentThisMonth,
+					limit = editedCategory.spendingLimit,
+					remaining = editedCategory.spendingLimit - spentThisMonth,
 					prevCategoryName = prevWidgetCategory,
 				)
 			}

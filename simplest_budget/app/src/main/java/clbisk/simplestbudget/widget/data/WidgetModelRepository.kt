@@ -71,8 +71,7 @@ class WidgetModelRepository @Inject internal constructor(
 		}
 	}
 
-	// TODO: use
-	fun updateBudgetForCategory(categoryName: String, remainingThisMonth: Long, prevCategoryName: String = categoryName) {
+	fun updateBudgetForCategory(categoryName: String, limit: Long, remaining: Long, prevCategoryName: String = categoryName) {
 		coroutineScope.launch {
 			widgetModelDao.modelsForCategory(prevCategoryName).forEach { model ->
 				if (model != null) {
@@ -80,7 +79,26 @@ class WidgetModelRepository @Inject internal constructor(
 						WidgetModel(
 							model.widgetId,
 							categoryName,
-							remainingThisMonth,
+							limit,
+							remaining,
+						),
+					)
+					SimplestBudgetWidget().updateAll(appContext)
+				}
+			}
+		}
+	}
+
+	fun updateTransactionTotalForCategory(categoryName: String, newTotal: Long) {
+		coroutineScope.launch {
+			widgetModelDao.modelsForCategory(categoryName).forEach { model ->
+				if (model != null) {
+					widgetModelDao.update(
+						WidgetModel(
+							model.widgetId,
+							categoryName,
+							model.spendingLimit,
+							remainingThisMonth = model.spendingLimit - newTotal,
 						),
 					)
 					SimplestBudgetWidget().updateAll(appContext)

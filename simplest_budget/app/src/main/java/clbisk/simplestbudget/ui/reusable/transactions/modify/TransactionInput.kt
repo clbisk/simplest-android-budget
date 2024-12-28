@@ -25,11 +25,8 @@ fun TransactionRecord.toTransactionInput(): TransactionInput {
 }
 
 fun TransactionInput.toTransactionRecord(): TransactionRecord {
-	if (id == null)
-		throw Exception("ERROR PARSING TRANSACTION INPUT: can not update a transaction with no id")
-
 	return TransactionRecord(
-		id,
+		id ?: 0,
 		inCategoryName,
 		currencyAmount.toLong(),
 		recordedTimestamp ?: Timestamp(Date().time),

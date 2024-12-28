@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
+import clbisk.simplestbudget.ui.reusable.transactions.modify.ModifyTransactionForm
 import kotlinx.coroutines.launch
 
 @Composable
@@ -18,7 +19,7 @@ fun EditTransactionFormContainer(
 
 	val editState by viewModel.inputState.collectAsState()
 
-	EditTransactionForm (
+	ModifyTransactionForm (
 		input = editState.input,
 		onInputChange = viewModel::onUpdate,
 		onSave = {

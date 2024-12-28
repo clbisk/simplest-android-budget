@@ -1,49 +1,66 @@
-package clbisk.simplestbudget.ui.reusable.transactions.modify.create
+package clbisk.simplestbudget.ui.reusable.transactions.modify.edit
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
+import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
+import clbisk.simplestbudget.ui.reusable.transactions.modify.TransactionInput
+import clbisk.simplestbudget.ui.reusable.transactions.modify.toTransactionRecord
 import clbisk.simplestbudget.ui.reusable.util.parseStringAsCurrencyLong
+import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class NewTransactionViewModel @Inject constructor(
-	private val categoryRepository: BudgetCategoriesRepository
+	savedStateHandle: SavedStateHandle,
+	private val transactionRepo: TransactionRecordsRepository,
+	private val widgetRepo: WidgetModelRepository,
 ) : ViewModel() {
-	private val _nameInput = MutableLiveData("")
-	private val _limitInput = MutableLiveData(0.toLong())
-	private val _inputValid = MutableLiveData(false)
+	/** read transaction id to be loaded from navigation input */
+	private val categoryName: String = checkNotNull(savedStateHandle["categoryName"])
 
-	val categoryName: LiveData<String> = _nameInput
-	val spendingLimit: LiveData<Long> = _limitInput
-	val isValid: LiveData<Boolean> = _inputValid
+	val inputState: MutableStateFlow<TransactionEditState> = MutableStateFlow(
+		TransactionEditState(
+			stateLoaded = true, initialCategoryName = categoryName, input = TransactionInput()
+		)
+	)
 
-	fun onNameUpdate(name: String) {
-		if (name.isNotBlank()) {
-			_nameInput.value = name
-		}
-		_inputValid.value = validateInput()
+	private fun validateUpdate(newInput: TransactionInput): Boolean {
+		return parseStringAsCurrencyLong(newInput.currencyAmount) != null
 	}
 
-	fun onLimitUpdate(limitAsStr: String) {
-		val limit = parseStringAsCurrencyLong(limitAsStr)
-		if (limit !== null) {
-			_limitInput.value = limit
+	fun onUpdate(newInput: TransactionInput) {
+		if (validateUpdate(newInput)) {
+			inputState.update {
+				it.copy(input = newInput)
+			}
 		}
-		_inputValid.value = validateInput()
-	}
-
-	suspend fun saveNewCategory() {
-		categoryRepository.insert(BudgetCategory(
-			categoryName = categoryName.value!!,
-			spendingLimit = _limitInput.value!!,
-		))
 	}
 
 	private fun validateInput(): Boolean {
-		return !(_nameInput.value.isNullOrBlank())
+		val input = inputState.value.input
+		return input?.inCategoryName?.isNotBlank() ?: false
+	}
+
+	suspend fun saveNewCategory() {
+		val editedTransaction = inputState.value.input
+
+		if (validateInput()) {
+			transactionRepo.insert(editedTransaction!!.toTransactionRecord())
+		}
+
+		// update widget
+		val forCategory = editedTransaction!!.inCategoryName
+		val newTransactionTotal = transactionRepo
+			.getTransactionTotalForCategory(forCategory)
+			.first()
+
+		widgetRepo.updateTransactionTotalForCategory(
+			categoryName = forCategory,
+			newTotal = newTransactionTotal,
+		)
 	}
 }

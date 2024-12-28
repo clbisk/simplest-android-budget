@@ -9,6 +9,7 @@ import clbisk.simplestbudget.ui.reusable.transactions.modify.TransactionInput
 import clbisk.simplestbudget.ui.reusable.transactions.modify.toTransactionInput
 import clbisk.simplestbudget.ui.reusable.transactions.modify.toTransactionRecord
 import clbisk.simplestbudget.ui.reusable.util.parseStringAsCurrencyLong
+import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class EditTransactionViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
 	private val transactionRepo: TransactionRecordsRepository,
+	private val widgetRepo: WidgetModelRepository,
 ) : ViewModel() {
 	/** read transaction id to be loaded from navigation input */
 	private val idArg: String = checkNotNull(savedStateHandle["transactionId"])
@@ -74,5 +76,16 @@ class EditTransactionViewModel @Inject constructor(
 		if (validateInput()) {
 			transactionRepo.update(editedTransaction.toTransactionRecord())
 		}
+
+		// update widget
+		val forCategory = editedTransaction.inCategoryName
+		val newTransactionTotal = transactionRepo
+			.getTransactionTotalForCategory(forCategory)
+			.first()
+
+		widgetRepo.updateTransactionTotalForCategory(
+			categoryName = forCategory,
+			newTotal = newTransactionTotal,
+		)
 	}
 }

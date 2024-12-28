@@ -46,7 +46,7 @@ val AppScreens: Map<Route, @Composable (navController: NavController) -> Unit> =
 				id -> navTo(TopLevelDestination.EditCategory, it)(listOf("$id"))
 			},
 			navToCreateTransaction = {
-				navTo(TopLevelDestination.CreateTransaction, it)(null)
+				cat -> navTo(TopLevelDestination.CreateTransaction, it)(listOf(cat))
 			},
 		)
 	},

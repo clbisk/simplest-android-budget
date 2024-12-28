@@ -17,7 +17,11 @@ val NavArgs: Map<Route, List<NamedNavArgument>> = mapOf(
 			type = NavType.StringType
 		}
 	),
-	Route.CreateTransaction to listOf(),
+	Route.CreateTransaction to listOf(
+		navArgument("categoryName") {
+			type = NavType.StringType
+		}
+	),
 	Route.EditTransaction to listOf(
 		navArgument("transactionId") {
 			type = NavType.IntType

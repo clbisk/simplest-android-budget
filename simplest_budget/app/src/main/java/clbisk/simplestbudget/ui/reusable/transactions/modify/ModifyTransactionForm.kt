@@ -1,28 +1,31 @@
-package clbisk.simplestbudget.ui.reusable.transactions.modify.edit
+package clbisk.simplestbudget.ui.reusable.transactions.modify
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import clbisk.simplestbudget.R
 import clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect.CategorySelect
-import clbisk.simplestbudget.ui.reusable.transactions.modify.TransactionInput
 
 @Composable
-fun EditTransactionForm (
+fun ModifyTransactionForm (
 	input: TransactionInput?,
 	onInputChange: (TransactionInput) -> Unit,
 	onSave: () -> Unit,
 	paddingValues: PaddingValues,
 ) {
 	Column(
-		modifier = Modifier.padding(paddingValues)
+		modifier = Modifier.padding(paddingValues),
+		verticalArrangement = Arrangement.Center,
+		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
 		Column {
 			CategorySelect (
@@ -32,14 +35,18 @@ fun EditTransactionForm (
 			)
 			OutlinedTextField(
 				value = input?.currencyAmount ?: "",
-				onValueChange = { newCat -> onInputChange(input!!.copy(inCategoryName = newCat)) },
+				onValueChange = { newAmt -> onInputChange(input!!.copy(currencyAmount = newAmt)) },
 				enabled = input != null,
+			)
+			Spacer(modifier = Modifier.weight(1f))
+			OutlinedTextField(
+				value = input?.description ?: "",
+				onValueChange = { newTxt -> onInputChange(input!!.copy(description = newTxt)) },
 			)
 		}
 		FilledTonalButton(
 			onClick = onSave,
 			enabled = input != null,
-			shape = MaterialTheme.shapes.small
 		) {
 			Text(stringResource(R.string.save_button_text))
 		}

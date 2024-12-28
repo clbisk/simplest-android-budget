@@ -11,11 +11,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.glance.appwidget.updateAll
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
+import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
 import clbisk.simplestbudget.ui.theme.SimplestBudgetTheme
 import clbisk.simplestbudget.widget.SimplestBudgetWidget
 import clbisk.simplestbudget.widget.data.WidgetModel
 import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -24,13 +26,20 @@ class SimplestBudgetConfigActivity: ComponentActivity() {
 	@Inject
 	lateinit var widgetModelRepository: WidgetModelRepository
 
+	@Inject
+	lateinit var transactionRepository: TransactionRecordsRepository
+
 	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory, spendingLimit: Long) {
 		runBlocking {
+			val transactionTotal = transactionRepository
+				.getTransactionTotalForCategory(category.categoryName).first()
+
 			widgetModelRepository.createOrUpdate(
 				WidgetModel(
 					appWidgetId,
 					category.categoryName,
 					spendingLimit,
+					remainingThisMonth = spendingLimit - transactionTotal,
 				),
 			)
 
