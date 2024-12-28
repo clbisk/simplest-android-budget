@@ -28,7 +28,5 @@ sealed interface WidgetState {
 data class WidgetModel(
 	@PrimaryKey val widgetId: Int,
 	val forCategoryName: String,
-
-	val remainingThisMonthDollars: Int,
-	val remainingThisMonthCents: Int,
+	val remainingThisMonth: Long,
 ) : WidgetState

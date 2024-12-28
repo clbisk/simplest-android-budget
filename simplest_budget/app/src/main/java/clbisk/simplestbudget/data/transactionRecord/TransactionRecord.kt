@@ -23,8 +23,7 @@ data class TransactionRecord(
 	@ColumnInfo(name = "transactionRecordId")
 	val id: Int = 0,
 	val inCategoryName: String,
-	val wholeCurrencyAmount: Int = 0,   // for USD: whole dollars
-	val fractionalCurrencyAmount: Int = 0,  // for USD: cents
+	val currencyAmount: Long,
 	val recordedTimestamp: Timestamp,
 	val description: String = "",
 )

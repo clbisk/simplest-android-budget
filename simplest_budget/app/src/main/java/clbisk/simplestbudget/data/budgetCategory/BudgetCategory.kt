@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 data class BudgetCategory(
 	@PrimaryKey(autoGenerate = false)
 	val categoryName: String,
-	val spendingLimit: Int,
+	val spendingLimit: Long,
 )

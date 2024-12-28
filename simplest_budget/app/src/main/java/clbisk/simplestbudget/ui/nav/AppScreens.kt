@@ -2,52 +2,52 @@ package clbisk.simplestbudget.ui.nav
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import clbisk.simplestbudget.ui.HomeScreen
-import clbisk.simplestbudget.ui.budgetcategories.modify.create.CreateBudgetCategoryScreen
-import clbisk.simplestbudget.ui.budgetcategories.modify.edit.EditBudgetCategoryScreen
-import clbisk.simplestbudget.ui.transactions.list.TransactionsForCategoryScreen
-import clbisk.simplestbudget.ui.transactions.modify.create.CreateTransactionScreen
-import clbisk.simplestbudget.ui.transactions.modify.edit.EditTransactionScreen
+import clbisk.simplestbudget.ui.screens.budgetcategories.create.CreateBudgetCategoryScreen
+import clbisk.simplestbudget.ui.screens.budgetcategories.edit.EditBudgetCategoryScreen
+import clbisk.simplestbudget.ui.screens.home.HomeScreen
+import clbisk.simplestbudget.ui.screens.transactions.create.CreateTransactionScreen
+import clbisk.simplestbudget.ui.screens.transactions.edit.EditTransactionScreen
+import clbisk.simplestbudget.ui.screens.transactions.forcategory.TransactionsForCategoryScreen
 
-fun navToCreateCategory(navController: NavController): () -> Unit = {
-	navController.navigate(TopLevelDestination.CreateCategory.name)
-}
+fun navTo(toDest: TopLevelDestination, navController: NavController): (args: List<String>?) -> Unit = {
+	args ->
+		val routeName =
+			if (NavArgs[toDest.route]?.isEmpty() == false)
+				"${toDest.name}/${args!!.joinToString(separator = ",")}"
+			else toDest.name
 
-fun navToEditCategory(navController: NavController): (categoryName: String) -> Unit = {
-	categoryName: String -> navController.navigate("${TopLevelDestination.EditCategory.name}/${categoryName}")
-}
-
-fun navToTransactionsForCat(navController: NavController): (categoryName: String) -> Unit = {
-	categoryName: String -> navController.navigate("${TopLevelDestination.TransactionsForCat.name}/${categoryName}")
-}
-
-fun navToEditTransaction(navController: NavController): (transactionId: Int) -> Unit = {
-		transactionId: Int -> navController.navigate("${TopLevelDestination.EditTransaction.name}/${transactionId}")
+		navController.navigate(routeName)
 }
 
 val AppScreens: Map<Route, @Composable (navController: NavController) -> Unit> = mapOf(
 	Route.Home to {
-		navController -> HomeScreen(
-			navToCreateCategory = navToCreateCategory(navController),
-			navToTransactionsList = navToTransactionsForCat(navController),
+		HomeScreen(
+			navToCreateCategory = {
+				navTo(TopLevelDestination.CreateCategory, it)(null)
+		    },
+			navToTransactionsList = {
+				cat -> navTo(TopLevelDestination.TransactionsForCat, it)(listOf(cat))
+			},
 		)
 	},
-	Route.CreateCategory to {
-		navController -> CreateBudgetCategoryScreen(
-			navUp = navController::navigateUp
-		)
-	},
-	Route.EditCategory to {
-		navController -> EditBudgetCategoryScreen(
-			navUp = navController::navigateUp
-		)
-	},
+
+	Route.CreateCategory to { CreateBudgetCategoryScreen(navUp = it::navigateUp) },
+	Route.EditCategory to { EditBudgetCategoryScreen(navUp = it::navigateUp) },
+
+	Route.CreateTransaction to { CreateTransactionScreen(navBack = { it.popBackStack() }) },
+	Route.EditTransaction to { EditTransactionScreen(navUp = it::navigateUp) },
+
 	Route.TransactionsForCat to {
-		navController -> TransactionsForCategoryScreen(
-			navToEditCategory = navToEditCategory(navController),
-			navToEditTransactionRecord = navToEditTransaction(navController),
+		 TransactionsForCategoryScreen(
+			navToEditCategory = {
+				cat -> navTo(TopLevelDestination.EditCategory, it)(listOf(cat))
+			},
+			navToEditTransactionRecord = {
+				id -> navTo(TopLevelDestination.EditCategory, it)(listOf("$id"))
+			},
+			navToCreateTransaction = {
+				navTo(TopLevelDestination.CreateTransaction, it)(null)
+			},
 		)
-								},
-	Route.CreateTransaction to { CreateTransactionScreen() },
-	Route.EditTransaction to { EditTransactionScreen() },
+	},
 )

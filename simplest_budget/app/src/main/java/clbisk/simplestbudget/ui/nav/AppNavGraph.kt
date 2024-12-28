@@ -14,13 +14,12 @@ fun AppNavGraph() {
 	) {
 		TopLevelDestination.entries.map { dest ->
 			val destArgs = NavArgs[dest.route] ?: listOf()
-
 			val argNames = if (destArgs.isNotEmpty()) {
 				val allNames = destArgs.map { "{${it.name}}" }
 				"/${allNames.joinToString(separator = "")}"
 			} else ""
-			val route = dest.name + argNames
 
+			val route = dest.name + argNames
 			val destScreen = AppScreens[dest.route]
 				?: throw Exception("NAV GRAPH ERROR -- Screen for ${dest.name} not specified!")
 

@@ -12,6 +12,8 @@ class OfflineTransactionRecordsRepository @Inject constructor(
 	override fun getAllTransactions(): Flow<List<TransactionRecord>> = transactionRecordDao.getAllTransactions()
 	override fun getTransactionsForCategory(categoryName: String): Flow<List<TransactionRecord>> =
 		transactionRecordDao.getTransactionsForCategory(categoryName)
+	override fun getTransactionTotalForCategory(categoryName: String): Flow<Long> =
+		transactionRecordDao.getTransactionTotalForCategory(categoryName)
 	override suspend fun insert(transaction: TransactionRecord) = transactionRecordDao.insert(transaction)
 	override suspend fun update(transaction: TransactionRecord) = transactionRecordDao.update(transaction)
 	override suspend fun delete(transaction: TransactionRecord) = transactionRecordDao.delete(transaction)

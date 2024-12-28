@@ -11,12 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
-import clbisk.simplestbudget.ui.budgetcategories.list.BudgetCategoryItem
+import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryItem
 
 @Composable
 fun WidgetConfigContent(
 	appWidgetId: Int,
-	onCategoryClick: (Int, BudgetCategory, Int) -> Unit,
+	onCategoryClick: (Int, BudgetCategory, Long) -> Unit,
 	contentPadding: PaddingValues,
 	viewModel: WidgetConfigViewModel = hiltViewModel(),
 ) {

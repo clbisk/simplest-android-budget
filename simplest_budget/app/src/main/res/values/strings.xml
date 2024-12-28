@@ -13,4 +13,6 @@
     <string name="widget_config_title">Select a Budget Category to track</string>
     <string name="budget_widget_name">Track your Remaining Budget</string>
     <string name="no_transactions_message">No transactions recorded for this category.</string>
+    <string name="add_transaction_title">Record a new transaction</string>
+    <string name="category_select_label">Category</string>
 </resources>

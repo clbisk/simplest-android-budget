@@ -21,6 +21,9 @@ interface TransactionRecordDao {
 	@Query("SELECT * FROM transactionRecords where inCategoryName = :categoryName")
 	fun getTransactionsForCategory(categoryName: String): Flow<List<TransactionRecord>>
 
+	@Query("SELECT SUM(currencyAmount) FROM transactionRecords where inCategoryName = :categoryName")
+	fun getTransactionTotalForCategory(categoryName: String): Flow<Long>
+
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	suspend fun insert(category: TransactionRecord)
 

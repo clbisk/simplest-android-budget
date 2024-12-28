@@ -72,16 +72,15 @@ class WidgetModelRepository @Inject internal constructor(
 	}
 
 	// TODO: use
-	fun updateBudgetForCategory(categoryName: String, remainingThisMonthDollars: Int, remainingThisMonthCents: Int) {
+	fun updateBudgetForCategory(categoryName: String, remainingThisMonth: Long, prevCategoryName: String = categoryName) {
 		coroutineScope.launch {
-			widgetModelDao.modelsForCategory(categoryName).forEach { model ->
+			widgetModelDao.modelsForCategory(prevCategoryName).forEach { model ->
 				if (model != null) {
 					widgetModelDao.update(
 						WidgetModel(
 							model.widgetId,
-							model.forCategoryName,
-							remainingThisMonthDollars,
-							remainingThisMonthCents,
+							categoryName,
+							remainingThisMonth,
 						),
 					)
 					SimplestBudgetWidget().updateAll(appContext)
