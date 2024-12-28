@@ -2,6 +2,7 @@ package clbisk.simplestbudget.ui.reusable.util
 
 import android.content.res.Resources
 import android.icu.number.NumberFormatter
+import android.icu.number.Precision
 import android.icu.util.Currency
 
 fun formatCurrency(currencyValue: Long): String {
@@ -21,8 +22,6 @@ fun parseStringAsCurrencyLong(str: String): Long? {
 	val currencyLong = str.toLongOrNull() ?: return null
 
 	return NumberFormatter.withLocale(deviceLocale)
-		.unit(Currency.getInstance(deviceLocale))
-		.format(currencyLong)
-		.toString()
-		.toLong()
+		.precision(Precision.currency(Currency.CurrencyUsage.STANDARD))
+		.format(currencyLong).toBigDecimal().toLong()
 }
