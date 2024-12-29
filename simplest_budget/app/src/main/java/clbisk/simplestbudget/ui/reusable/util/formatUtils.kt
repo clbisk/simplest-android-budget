@@ -13,6 +13,11 @@ fun formatCurrency(currencyValue: Long): String {
 		.toString()
 }
 
+fun maybeFormatCurrency(currencyValue: Long?): String? {
+	if (currencyValue == null) return null
+	return formatCurrency(currencyValue)
+}
+
 fun parseStringAsInt(str: String): Int? {
 	return str.toIntOrNull()
 }

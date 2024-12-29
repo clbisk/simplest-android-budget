@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.ui.reusable.budgetcategories.modify
+package clbisk.simplestbudget.ui.reusable.model
 
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 

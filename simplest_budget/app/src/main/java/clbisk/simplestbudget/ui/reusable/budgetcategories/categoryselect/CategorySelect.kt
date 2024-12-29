@@ -1,6 +1,8 @@
 package clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect
 
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -12,7 +14,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import clbisk.simplestbudget.R
-import androidx.compose.foundation.lazy.items as lazyItems
 
 @Composable
 fun CategorySelect(
@@ -22,44 +23,52 @@ fun CategorySelect(
 	viewModel: CategorySelectViewModel = hiltViewModel(),
 ) {
 	val input = viewModel.inputState.collectAsState()
-	val categoryList = viewModel.filteredList
 	val inputError = viewModel.inputError.collectAsState()
-
-	var categoryMenuOpen = false
-	fun openCategoryMenu() { categoryMenuOpen = true }
-	fun closeCategoryMenu() { categoryMenuOpen = false }
+	val isMenuOpen = viewModel.isCategoryMenuOpen.collectAsState()
+	val categoryListState = viewModel.categoryListState.collectAsState()
+	val categoryList = categoryListState.value.categoryList ?: listOf()
 
 	val focusModifier = Modifier.onFocusChanged {
-		if (it.isFocused) {
-			openCategoryMenu()
-		} else {
+		if (!it.isFocused) viewModel.openCategoryMenu() else {
 			viewModel.onUnfocus()
-			closeCategoryMenu()
+			viewModel.closeCategoryMenu()
 		}
 	}
 
-	TextField(
-		value = input.value,
-		onValueChange = viewModel::onUpdate,
-		modifier = focusModifier,
-		enabled = enabled,
-		readOnly = false,
-		label = { Text(stringResource(R.string.category_select_label)) },
-		placeholder = { Text(initialValue ?: "") },
-		isError = inputError.value,
-	)
-	
-	DropdownMenu(
-		expanded = categoryMenuOpen,
-		onDismissRequest = { closeCategoryMenu() },
-	) {
-		LazyColumn {
-			lazyItems(items = categoryList, key = { it.categoryName }) {
-				DropdownMenuItem(
-					text = { Text(it.categoryName) },
-					onClick = { onValueSelect(it.categoryName) }
-				)
-			}
+	val clicks = viewModel.clicks.collectAsState()
+
+	Column {
+		Row {
+			Text("# of clicks: ${clicks.value}")
 		}
+
+		Row(
+			modifier = Modifier.clickable { viewModel.recordClick() }
+		) {
+			TextField(
+				value = input.value,
+				onValueChange = {},
+				enabled = enabled,
+				readOnly = true,
+				label = { Text(stringResource(R.string.category_select_label)) },
+				placeholder = { Text(initialValue ?: "") },
+				isError = inputError.value,
+				singleLine = true,
+				trailingIcon = { DropdownArrowIcon(isMenuOpen.value) },
+				modifier = focusModifier,
+			)
+
+			DropdownMenu(
+				expanded = isMenuOpen.value,
+				onDismissRequest = viewModel::closeCategoryMenu,
+			) {
+				categoryList.map {
+					DropdownMenuItem(
+						text = { Text(it.categoryName) },
+						onClick = { onValueSelect(it.categoryName) }
+					)
+				}
+			}
+		}4
 	}
 }

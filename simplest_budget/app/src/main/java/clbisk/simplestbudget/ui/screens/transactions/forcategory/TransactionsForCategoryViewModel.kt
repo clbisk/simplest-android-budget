@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
-import clbisk.simplestbudget.data.transactionRecord.TransactionRecord
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
+import clbisk.simplestbudget.ui.reusable.model.CategoryState
+import clbisk.simplestbudget.ui.reusable.model.TransactionListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,24 +19,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class TransactionListState(
-	val transactionList: List<TransactionRecord>? = null
-)
-
-data class CategoryState(
-	val categoryName: String,
-	val loaded: Boolean = false,
-	val data: BudgetCategory? = null
-)
-
 @HiltViewModel
 class TransactionsForCategoryViewModel @Inject constructor(
 	savedStateHandle: SavedStateHandle,
-	categoryRepository: BudgetCategoriesRepository,
-	transactionRecordsRepository: TransactionRecordsRepository,
+	categoryRepo: BudgetCategoriesRepository,
+	transactionsRepo: TransactionRecordsRepository,
 ) : ViewModel() {
 	/** read category name to be loaded from navigation input */
-	private val nameArg: String = checkNotNull(savedStateHandle["categoryName"])
+	val nameArg: String = checkNotNull(savedStateHandle["categoryName"])
 
 	/** get category details to display over transaction list */
 	val categoryState: MutableStateFlow<CategoryState> = MutableStateFlow(
@@ -45,9 +35,12 @@ class TransactionsForCategoryViewModel @Inject constructor(
 
 	init {
 		viewModelScope.launch {
-			val categoryData = categoryRepository.getCategory(nameArg)
+			val categoryData = categoryRepo.getCategory(nameArg)
 				.filterNotNull()
 				.first()
+
+			val transactionsTotal =
+				transactionsRepo.getTransactionTotalForCategory(nameArg).first()
 
 			categoryState.update {
 				it.copy(
@@ -59,7 +52,7 @@ class TransactionsForCategoryViewModel @Inject constructor(
 	}
 
 	val transactionsListState: StateFlow<TransactionListState> =
-		transactionRecordsRepository.getTransactionsForCategory(nameArg).map { TransactionListState(it) }
+		transactionsRepo.getTransactionsForCategory(nameArg).map { TransactionListState(it) }
 			.stateIn(
 				scope = viewModelScope,
 				started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),

@@ -3,7 +3,6 @@ package clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.reusable.budgetcategories.list.CategoryListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,30 +19,27 @@ class CategorySelectViewModel @Inject constructor(
 	val inputState: MutableStateFlow<String> = MutableStateFlow("")
 	val inputError: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
-	private val categoryListState: StateFlow<CategoryListState> =
-		categoriesRepo.getAllCategories().map { CategoryListState(it) }
+	val categoryListState: StateFlow<CategoryListState> =
+		categoriesRepo.getAllCategories().map {
+			CategoryListState(it, it.filter { cat -> cat.categoryName.contains(inputState.value) })
+		}
 			.stateIn(
 				scope = viewModelScope,
 				started = SharingStarted.WhileSubscribed(),
 				initialValue = CategoryListState()
 			)
 
-	private val categoryList: List<BudgetCategory>? = categoryListState.value.categoryList
-	val filteredList = categoryList?.filter { it.categoryName.contains(inputState.value) } ?: listOf()
-
-	private fun validateUpdate(newInput: String): Boolean {
-		return inputState.value.isNotEmpty()
-	}
-
 	fun onUpdate(newInput: String) {
-		if (validateUpdate(newInput)) {
+		inputState.value = newInput
+		if (newInput.isNotEmpty()) {
 			inputError.value = false
-			inputState.value = newInput
 		}
 	}
 
-	fun validateInput(): Boolean {
-		return categoryListState.value.categoryList!!.any { it.categoryName == inputState.value }
+	private fun validateInput(): Boolean {
+		return categoryListState.value.categoryList?.any {
+			it.categoryName == inputState.value
+		} ?: false
 	}
 
 	fun onUnfocus() {
@@ -53,4 +49,16 @@ class CategorySelectViewModel @Inject constructor(
 		} else
 			inputError.value = false
 	}
+
+	val isCategoryMenuOpen = MutableStateFlow(false)
+	fun openCategoryMenu() { isCategoryMenuOpen.value = true }
+	fun closeCategoryMenu() {
+		isCategoryMenuOpen.value = false
+		if (inputState.value.isNotEmpty()) {
+			onUnfocus()
+		}
+	}
+
+	val clicks = MutableStateFlow(0)
+	fun recordClick() { clicks.value += 1 }
 }

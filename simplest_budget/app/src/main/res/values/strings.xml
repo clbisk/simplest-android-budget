@@ -15,4 +15,7 @@
     <string name="no_transactions_message">No transactions recorded for this category.</string>
     <string name="add_transaction_title">Record a new transaction</string>
     <string name="category_select_label">Category</string>
+    <string name="indicate_loading_text">…</string>
+    <string name="arrow_right_icon">right arrow icon</string>
+    <string name="arrow_down_icon">down arrow icon</string>
 </resources>

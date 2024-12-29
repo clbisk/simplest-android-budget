@@ -2,8 +2,10 @@ package clbisk.simplestbudget.ui.reusable.transactions.modify
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedTextField
@@ -23,26 +25,34 @@ fun ModifyTransactionForm (
 	paddingValues: PaddingValues,
 ) {
 	Column(
-		modifier = Modifier.padding(paddingValues),
+		modifier = Modifier.padding(paddingValues).height(IntrinsicSize.Max),
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Column {
+		Column(
+			modifier = Modifier.padding(paddingValues),
+			verticalArrangement = Arrangement.Center,
+			horizontalAlignment = Alignment.CenterHorizontally,
+		) {
 			CategorySelect (
 				onValueSelect = { newCat -> onInputChange(input!!.copy(inCategoryName = newCat)) },
 				enabled = input != null,
 				initialValue = input?.inCategoryName,
 			)
-			OutlinedTextField(
-				value = input?.currencyAmount ?: "",
-				onValueChange = { newAmt -> onInputChange(input!!.copy(currencyAmount = newAmt)) },
-				enabled = input != null,
-			)
-			Spacer(modifier = Modifier.weight(1f))
-			OutlinedTextField(
-				value = input?.description ?: "",
-				onValueChange = { newTxt -> onInputChange(input!!.copy(description = newTxt)) },
-			)
+
+			Row {
+				OutlinedTextField(
+					value = input?.currencyAmount ?: "",
+					onValueChange = { newAmt -> onInputChange(input!!.copy(currencyAmount = newAmt)) },
+					enabled = input != null,
+				)
+			}
+			Row {
+				OutlinedTextField(
+					value = input?.description ?: "",
+					onValueChange = { newTxt -> onInputChange(input!!.copy(description = newTxt)) },
+				)
+			}
 		}
 		FilledTonalButton(
 			onClick = onSave,

@@ -10,13 +10,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import clbisk.simplestbudget.R
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
-import clbisk.simplestbudget.ui.reusable.util.formatCurrency
+import clbisk.simplestbudget.ui.reusable.util.maybeFormatCurrency
 
 @Composable
 fun LazyLoadCategoryCard(
-	categoryState: CategoryState,
+	categoryName: String,
+	spendingLimit: Long?,
+	transactionTotal: Long?,
 	modifier: Modifier,
 ) {
 	Card(
@@ -29,22 +31,25 @@ fun LazyLoadCategoryCard(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = categoryState.categoryName,
+					text = categoryName,
 					style = MaterialTheme.typography.titleLarge
 				)
 			}
 			Row(
 				modifier = Modifier.fillMaxWidth()
 			) {
-				when (val cat = categoryState.data) {
-					is BudgetCategory ->
-						Text(
-							text = formatCurrency(cat.spendingLimit),
-							style = MaterialTheme.typography.titleMedium
-						)
-
-					else -> Text("...")
-				}
+				Text(
+					text = maybeFormatCurrency(spendingLimit) ?: stringResource(R.string.indicate_loading_text),
+					style = MaterialTheme.typography.titleMedium
+				)
+			}
+			Row(
+				modifier = Modifier.fillMaxWidth()
+			) {
+				Text(
+					text = maybeFormatCurrency(transactionTotal) ?: stringResource(R.string.indicate_loading_text),
+					style = MaterialTheme.typography.titleMedium
+				)
 			}
 		}
 	}

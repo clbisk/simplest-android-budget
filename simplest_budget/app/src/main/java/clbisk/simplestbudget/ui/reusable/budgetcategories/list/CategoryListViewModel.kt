@@ -12,7 +12,8 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 data class CategoryListState(
-	val categoryList: List<BudgetCategory>? = null
+	val categoryList: List<BudgetCategory>? = null,
+	val filteredList: List<BudgetCategory>? = null,
 )
 
 /**

@@ -6,9 +6,10 @@ import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
-import clbisk.simplestbudget.ui.reusable.budgetcategories.modify.CategoryInput
-import clbisk.simplestbudget.ui.reusable.budgetcategories.modify.toBudgetCategory
-import clbisk.simplestbudget.ui.reusable.budgetcategories.modify.toCategoryInput
+import clbisk.simplestbudget.ui.reusable.model.CategoryInput
+import clbisk.simplestbudget.ui.reusable.model.toBudgetCategory
+import clbisk.simplestbudget.ui.reusable.model.toCategoryInput
+import clbisk.simplestbudget.ui.reusable.model.CategoryEditState
 import clbisk.simplestbudget.ui.reusable.util.parseStringAsCurrencyLong
 import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
