@@ -8,14 +8,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import clbisk.simplestbudget.R
-import clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect.CategorySelect
+import clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect.SimpleCategorySelect
 
 @Composable
 fun ModifyTransactionForm (
@@ -30,25 +30,24 @@ fun ModifyTransactionForm (
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
 		Column(
-			modifier = Modifier.padding(paddingValues),
+			modifier = Modifier.padding(paddingValues).height(IntrinsicSize.Max),
 			verticalArrangement = Arrangement.Center,
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
-			CategorySelect (
+			SimpleCategorySelect (
 				onValueSelect = { newCat -> onInputChange(input!!.copy(inCategoryName = newCat)) },
-				enabled = input != null,
 				initialValue = input?.inCategoryName,
 			)
 
 			Row {
-				OutlinedTextField(
+				TextField(
 					value = input?.currencyAmount ?: "",
 					onValueChange = { newAmt -> onInputChange(input!!.copy(currencyAmount = newAmt)) },
 					enabled = input != null,
 				)
 			}
 			Row {
-				OutlinedTextField(
+				TextField(
 					value = input?.description ?: "",
 					onValueChange = { newTxt -> onInputChange(input!!.copy(description = newTxt)) },
 				)
