@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.ui.screens.transactions.forcategory
+package clbisk.simplestbudget.ui.screens.transactions.list.forcategory
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add

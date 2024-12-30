@@ -29,16 +29,16 @@ fun TransactionRecordItem(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = transaction.inCategoryName,
-					style = MaterialTheme.typography.titleLarge
+					text = formatCurrency(transaction.currencyAmount),
+					style = MaterialTheme.typography.bodyLarge
 				)
 			}
 			Row(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = formatCurrency(transaction.currencyAmount),
-					style = MaterialTheme.typography.titleMedium
+					text = transaction.description,
+					style = MaterialTheme.typography.bodyMedium
 				)
 			}
 		}

@@ -25,20 +25,20 @@ fun TransactionListContainer(
 				text = stringResource(R.string.loading_categories_message),
 				textAlign = TextAlign.Center,
 				style = MaterialTheme.typography.titleLarge,
-				modifier = Modifier.padding(contentPadding)
+				modifier = Modifier.padding(contentPadding),
 			)
 		} else if (transactionList.isEmpty()) {
 			Text(
 				text = stringResource(R.string.no_transactions_message),
 				textAlign = TextAlign.Center,
 				style = MaterialTheme.typography.titleLarge,
-				modifier = Modifier.padding(contentPadding)
+				modifier = Modifier.padding(contentPadding),
 			)
 		} else {
 			TransactionList(
 				transactionList,
 				onTransactionClick = { navToEditTransaction(it.id)},
-				contentPadding
+				contentPadding,
 			)
 		}
 	}

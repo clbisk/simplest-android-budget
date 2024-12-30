@@ -1,22 +1,17 @@
-package clbisk.simplestbudget.ui.screens.transactions.forcategory
+package clbisk.simplestbudget.ui.screens.transactions.list.forcategory
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
+import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
-import clbisk.simplestbudget.ui.reusable.model.CategoryState
 import clbisk.simplestbudget.ui.reusable.model.TransactionListState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,34 +24,26 @@ class TransactionsForCategoryViewModel @Inject constructor(
 	val nameArg: String = checkNotNull(savedStateHandle["categoryName"])
 
 	/** get category details to display over transaction list */
-	val categoryState: MutableStateFlow<CategoryState> = MutableStateFlow(
-		CategoryState(nameArg)
-	)
+	val categoryData: StateFlow<BudgetCategory> =
+		categoryRepo.getCategory(nameArg).stateIn(
+			scope = viewModelScope,
+			started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+			initialValue = BudgetCategory(nameArg, 0),
+		)
 
-	init {
-		viewModelScope.launch {
-			val categoryData = categoryRepo.getCategory(nameArg)
-				.filterNotNull()
-				.first()
-
-			val transactionsTotal =
-				transactionsRepo.getTransactionTotalForCategory(nameArg).first()
-
-			categoryState.update {
-				it.copy(
-					loaded = true,
-					data = categoryData
-				)
-			}
-		}
-	}
+	val transactionsTotalState: StateFlow<Long?> =
+		transactionsRepo.getTransactionTotalForCategory(nameArg).stateIn(
+			scope = viewModelScope,
+			started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+			initialValue = null,
+		)
 
 	val transactionsListState: StateFlow<TransactionListState> =
 		transactionsRepo.getTransactionsForCategory(nameArg).map { TransactionListState(it) }
 			.stateIn(
 				scope = viewModelScope,
 				started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-				initialValue = TransactionListState()
+				initialValue = TransactionListState(),
 			)
 
 	companion object {

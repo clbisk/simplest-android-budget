@@ -7,7 +7,7 @@ import clbisk.simplestbudget.ui.screens.budgetcategories.edit.EditBudgetCategory
 import clbisk.simplestbudget.ui.screens.home.HomeScreen
 import clbisk.simplestbudget.ui.screens.transactions.create.CreateTransactionScreen
 import clbisk.simplestbudget.ui.screens.transactions.edit.EditTransactionScreen
-import clbisk.simplestbudget.ui.screens.transactions.forcategory.TransactionsForCategoryScreen
+import clbisk.simplestbudget.ui.screens.transactions.list.forcategory.TransactionsForCategoryScreen
 
 fun navTo(toDest: TopLevelDestination, navController: NavController): (args: List<String>?) -> Unit = {
 	args ->
