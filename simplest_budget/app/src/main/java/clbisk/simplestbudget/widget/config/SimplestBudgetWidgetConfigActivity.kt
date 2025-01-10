@@ -29,14 +29,15 @@ class SimplestBudgetConfigActivity: ComponentActivity() {
 	@Inject
 	lateinit var transactionRepository: TransactionRecordsRepository
 
-	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory, spendingLimit: Long) {
+	private fun onCategoryClick(appWidgetId: Int, category: BudgetCategory, spendingLimit: Float) {
 		runBlocking {
 			val transactionTotal = transactionRepository
-				.getTransactionTotalForCategory(category.categoryName).first()
+				.getTransactionTotalForCategory(category.id).first()
 
 			widgetModelRepository.createOrUpdate(
 				WidgetModel(
 					appWidgetId,
+					category.id,
 					category.categoryName,
 					spendingLimit,
 					remainingThisMonth = spendingLimit - transactionTotal,

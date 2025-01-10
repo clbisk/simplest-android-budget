@@ -7,7 +7,7 @@ import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryLis
 @Composable
 fun HomeScreen(
 	navToCreateCategory: () -> Unit,
-	navToTransactionsList: (String) -> Unit,
+	navToTransactionsList: (Int) -> Unit,
 ) {
 	Scaffold(
 		floatingActionButton = {

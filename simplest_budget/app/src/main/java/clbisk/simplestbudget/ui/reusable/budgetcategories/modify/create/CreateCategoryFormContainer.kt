@@ -15,7 +15,7 @@ fun CreateCategoryFormContainer(
 	val coroutineScope = rememberCoroutineScope()
 
 	val nameInputState by viewModel.categoryName.observeAsState("")
-	val spendingLimit by viewModel.spendingLimit.observeAsState(0)
+	val spendingLimit by viewModel.spendingLimit.observeAsState(0.toFloat())
 	val isValid by viewModel.isValid.observeAsState(false)
 
 	CreateBudgetCategoryForm(

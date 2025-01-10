@@ -21,8 +21,8 @@ import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryList
 
 val PREVIEW_CATEGORIES = listOf(
-	BudgetCategory("Hi", 100),
-	BudgetCategory("Bye", 1000),
+	BudgetCategory(1, "Hi", 100.toFloat()),
+	BudgetCategory(2, "Bye", 1000.toFloat()),
 )
 
 val LocalPreviewMode: ProvidableCompositionLocal<List<BudgetCategory>> = compositionLocalOf { listOf() }

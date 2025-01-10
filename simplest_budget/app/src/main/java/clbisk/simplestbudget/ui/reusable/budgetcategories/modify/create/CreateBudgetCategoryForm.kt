@@ -12,7 +12,7 @@ import clbisk.simplestbudget.R
 @Composable
 fun CreateBudgetCategoryForm (
 	name: String,
-	limit: Long,
+	limit: Float,
 	isValid: Boolean,
 	onNameChange: (String) -> Unit,
 	onLimitChange: (String) -> Unit,

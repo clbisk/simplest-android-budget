@@ -8,7 +8,7 @@ import javax.inject.Singleton
 class OfflineBudgetCategoriesRepository @Inject constructor(
 	private val budgetCategoryDao: BudgetCategoryDao
 ) : BudgetCategoriesRepository {
-	override fun getCategory(name: String): Flow<BudgetCategory> = budgetCategoryDao.getCategory(name)
+	override fun getCategory(id: Int): Flow<BudgetCategory> = budgetCategoryDao.getCategory(id)
 	override fun getAllCategories(): Flow<List<BudgetCategory>> = budgetCategoryDao.getAllCategories()
 	override suspend fun insert(category: BudgetCategory) = budgetCategoryDao.insert(category)
 	override suspend fun update(category: BudgetCategory) = budgetCategoryDao.update(category)

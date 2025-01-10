@@ -3,30 +3,30 @@ package clbisk.simplestbudget.ui.reusable.util
 import android.content.res.Resources
 import android.icu.number.NumberFormatter
 import android.icu.number.Precision
+import android.icu.text.NumberFormat
 import android.icu.util.Currency
+import java.util.Locale
 
-fun formatCurrency(currencyValue: Long): String {
-	val deviceLocale = Resources.getSystem().configuration.locales[0]
-	return NumberFormatter.withLocale(deviceLocale)
-		.unit(Currency.getInstance(deviceLocale))
+fun getDeviceLocale(): Locale = Resources.getSystem().configuration.locales[0]
+fun getDeviceCurrencySymbol(): String =
+	NumberFormat.getCurrencyInstance(getDeviceLocale()).currency?.symbol ?: "$"
+
+fun formatCurrency(currencyValue: Float): String {
+	return NumberFormatter.withLocale(getDeviceLocale())
+		.unit(Currency.getInstance(getDeviceLocale()))
 		.format(currencyValue)
 		.toString()
 }
 
-fun maybeFormatCurrency(currencyValue: Long?): String? {
+fun maybeFormatCurrency(currencyValue: Float?): String? {
 	if (currencyValue == null) return null
 	return formatCurrency(currencyValue)
 }
 
-fun parseStringAsInt(str: String): Int? {
-	return str.toIntOrNull()
-}
+fun parseStringAsCurrencyFloat(str: String): Float? {
+	val currencyFloat = str.toFloatOrNull() ?: return null
 
-fun parseStringAsCurrencyLong(str: String): Long? {
-	val deviceLocale = Resources.getSystem().configuration.locales[0]
-	val currencyLong = str.toLongOrNull() ?: return null
-
-	return NumberFormatter.withLocale(deviceLocale)
+	return NumberFormatter.withLocale(getDeviceLocale())
 		.precision(Precision.currency(Currency.CurrencyUsage.STANDARD))
-		.format(currencyLong).toBigDecimal().toLong()
+		.format(currencyFloat).toBigDecimal().toFloat()
 }

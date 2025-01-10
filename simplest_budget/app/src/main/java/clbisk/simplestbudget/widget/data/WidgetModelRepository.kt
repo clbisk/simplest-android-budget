@@ -71,13 +71,14 @@ class WidgetModelRepository @Inject internal constructor(
 		}
 	}
 
-	fun updateBudgetForCategory(categoryName: String, limit: Long, remaining: Long, prevCategoryName: String = categoryName) {
+	fun updateBudgetForCategory(categoryId: Int, categoryName: String, limit: Float, remaining: Float) {
 		coroutineScope.launch {
-			widgetModelDao.modelsForCategory(prevCategoryName).forEach { model ->
+			widgetModelDao.modelsForCategory(categoryId).forEach { model ->
 				if (model != null) {
 					widgetModelDao.update(
 						WidgetModel(
 							model.widgetId,
+							categoryId,
 							categoryName,
 							limit,
 							remaining,
@@ -89,14 +90,15 @@ class WidgetModelRepository @Inject internal constructor(
 		}
 	}
 
-	fun updateTransactionTotalForCategory(categoryName: String, newTotal: Long) {
+	fun updateTransactionTotalForCategory(categoryId: Int, categoryName: String, newTotal: Float) {
 		coroutineScope.launch {
-			widgetModelDao.modelsForCategory(categoryName).forEach { model ->
+			widgetModelDao.modelsForCategory(categoryId).forEach { model ->
 				if (model != null) {
 					widgetModelDao.update(
 						WidgetModel(
 							model.widgetId,
-							categoryName,
+							forCategoryId = categoryId,
+							forCategoryName = categoryName,
 							model.spendingLimit,
 							remainingThisMonth = model.spendingLimit - newTotal,
 						),

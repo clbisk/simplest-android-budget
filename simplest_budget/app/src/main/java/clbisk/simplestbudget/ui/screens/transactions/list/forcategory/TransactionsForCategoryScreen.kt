@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun TransactionsForCategoryScreen(
-	navToEditCategory: (String) -> Unit,
+	navToEditCategory: (Int) -> Unit,
 	navToEditTransactionRecord: (Int) -> Unit,
-	navToCreateTransaction: (String) -> Unit,
+	navToCreateTransaction: (Int) -> Unit,
 ) {
 	TransactionsForCategoryListContainer(
 		navToEditCategory,

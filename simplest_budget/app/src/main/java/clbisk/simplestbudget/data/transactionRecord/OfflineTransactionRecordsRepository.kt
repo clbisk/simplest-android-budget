@@ -8,12 +8,12 @@ import javax.inject.Singleton
 class OfflineTransactionRecordsRepository @Inject constructor(
 	private val transactionRecordDao: TransactionRecordDao
 ) : TransactionRecordsRepository {
-	override fun getTransaction(id: Int): Flow<TransactionRecord> =transactionRecordDao.getTransaction(id)
+	override fun getTransaction(id: Int): Flow<TransactionRecord> = transactionRecordDao.getTransaction(id)
 	override fun getAllTransactions(): Flow<List<TransactionRecord>> = transactionRecordDao.getAllTransactions()
-	override fun getTransactionsForCategory(categoryName: String): Flow<List<TransactionRecord>> =
-		transactionRecordDao.getTransactionsForCategory(categoryName)
-	override fun getTransactionTotalForCategory(categoryName: String): Flow<Long> =
-		transactionRecordDao.getTransactionTotalForCategory(categoryName)
+	override fun getTransactionsForCategory(categoryId: Int): Flow<List<TransactionRecord>> =
+		transactionRecordDao.getTransactionsForCategory(categoryId)
+	override fun getTransactionTotalForCategory(categoryId: Int): Flow<Float> =
+		transactionRecordDao.getTransactionTotalForCategory(categoryId)
 	override suspend fun insert(transaction: TransactionRecord) = transactionRecordDao.insert(transaction)
 	override suspend fun update(transaction: TransactionRecord) = transactionRecordDao.update(transaction)
 	override suspend fun delete(transaction: TransactionRecord) = transactionRecordDao.delete(transaction)

@@ -15,19 +15,20 @@ sealed interface WidgetState {
 	foreignKeys = [
 		ForeignKey(
 			entity = BudgetCategory::class,
-			parentColumns = ["categoryName"],
-			childColumns = ["forCategoryName"],
+			parentColumns = ["categoryId"],
+			childColumns = ["forCategoryId"],
 			onDelete = ForeignKey.CASCADE,
 		),
 	],
 	indices = [
 		Index("widgetId"),
-		Index("forCategoryName"),
+		Index("forCategoryId"),
 	],
 )
 data class WidgetModel(
 	@PrimaryKey val widgetId: Int,
+	val forCategoryId: Int,
 	val forCategoryName: String,
-	val spendingLimit: Long,
-	val remainingThisMonth: Long,
+	val spendingLimit: Float,
+	val remainingThisMonth: Float,
 ) : WidgetState

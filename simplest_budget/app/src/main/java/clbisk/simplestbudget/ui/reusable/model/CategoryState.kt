@@ -6,5 +6,5 @@ data class CategoryState(
 	val categoryName: String,
 	val loaded: Boolean = false,
 	val data: BudgetCategory? = null,
-	val transactionTotal: Long? = null,
+	val transactionTotal: Float? = null,
 )

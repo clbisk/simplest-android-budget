@@ -18,9 +18,9 @@ import clbisk.simplestbudget.ui.reusable.transactions.list.TransactionListContai
 
 @Composable
 fun TransactionsForCategoryListContainer (
-	navToEditCategory: (String) -> Unit,
+	navToEditCategory: (Int) -> Unit,
 	navToEditTransaction: (Int) -> Unit,
-	navToCreateTransaction: (String) -> Unit,
+	navToCreateTransaction: (Int) -> Unit,
 	viewModel: TransactionsForCategoryViewModel = hiltViewModel(),
 ) {
 	val transactionListState by viewModel.transactionsListState.collectAsState()
@@ -31,7 +31,7 @@ fun TransactionsForCategoryListContainer (
 
 	Scaffold(
 		floatingActionButton = {
-			TransactionCreateFab { navToCreateTransaction(viewModel.nameArg) }
+			TransactionCreateFab { navToCreateTransaction(viewModel.catId) }
 		},
 
 	) { paddingValues ->
@@ -40,10 +40,10 @@ fun TransactionsForCategoryListContainer (
 		) {
 			Row {
 				LazyLoadCategoryCard(
-					categoryName = viewModel.nameArg,
+					categoryName = categoryState.value.categoryName,
 					modifier = Modifier
 						.padding(paddingValues)
-						.clickable { navToEditCategory(viewModel.nameArg) },
+						.clickable { navToEditCategory(viewModel.catId) },
 					spendingLimit = categoryState.value.spendingLimit,
 					transactionTotal = transactionTotal.value,
 				)

@@ -1,4 +1,4 @@
-package clbisk.simplestbudget.ui.nav
+package clbisk.simplestbudget.ui.nav.routes
 
 import kotlinx.serialization.Serializable
 
@@ -21,16 +21,3 @@ sealed interface Route {
 	@Serializable
 	data object EditTransaction : Route
 }
-
-enum class TopLevelDestination(
-	val route: Route,
-) {
-	Home(Route.Home),
-	CreateCategory(Route.CreateCategory),
-	EditCategory(Route.EditCategory),
-	TransactionsForCat(Route.TransactionsForCat),
-	CreateTransaction(Route.CreateTransaction),
-	EditTransaction(Route.EditTransaction),
-}
-
-val START_DESTINATION = TopLevelDestination.Home

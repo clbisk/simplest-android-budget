@@ -16,7 +16,7 @@ import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryIte
 @Composable
 fun WidgetConfigContent(
 	appWidgetId: Int,
-	onCategoryClick: (Int, BudgetCategory, Long) -> Unit,
+	onCategoryClick: (Int, BudgetCategory, Float) -> Unit,
 	contentPadding: PaddingValues,
 	viewModel: WidgetConfigViewModel = hiltViewModel(),
 ) {

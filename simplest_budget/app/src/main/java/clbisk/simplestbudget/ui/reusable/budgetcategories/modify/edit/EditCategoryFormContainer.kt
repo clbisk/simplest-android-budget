@@ -18,7 +18,7 @@ fun EditCategoryFormContainer(
 
 	EditBudgetCategoryForm (
 		name = editState.input?.categoryName ?: "",
-		limit = editState.input?.spendingLimit ?: 0,
+		limit = editState.input?.spendingLimit ?: 0f,
 		editState.stateLoaded,
 		onNameInputChange = viewModel::onNameInputChange,
 		onLimitInputChange = viewModel::onLimitInputChange,

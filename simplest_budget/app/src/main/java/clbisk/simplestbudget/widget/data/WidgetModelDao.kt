@@ -15,8 +15,8 @@ interface WidgetModelDao {
 	@Query("SELECT * FROM WidgetModel where widgetId NOT IN (:widgetIds)")
 	fun findOrphanModels(widgetIds: List<Int>): List<WidgetModel>
 
-	@Query("SELECT * FROM WidgetModel where forCategoryName = :categoryName")
-	fun modelsForCategory(categoryName: String): List<WidgetModel?>
+	@Query("SELECT * FROM WidgetModel where forCategoryId = :categoryId")
+	fun modelsForCategory(categoryId: Int): List<WidgetModel?>
 
 	@Insert
 	suspend fun insert(model: WidgetModel)

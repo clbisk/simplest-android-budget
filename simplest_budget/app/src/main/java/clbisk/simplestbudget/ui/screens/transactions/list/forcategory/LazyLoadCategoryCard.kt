@@ -17,8 +17,8 @@ import clbisk.simplestbudget.ui.reusable.util.maybeFormatCurrency
 @Composable
 fun LazyLoadCategoryCard(
 	categoryName: String,
-	spendingLimit: Long?,
-	transactionTotal: Long?,
+	spendingLimit: Float?,
+	transactionTotal: Float?,
 	modifier: Modifier,
 ) {
 	Card(

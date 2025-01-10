@@ -6,18 +6,19 @@ import java.util.Date
 
 data class TransactionInput(
 	val id: Int? = null,
-	val inCategoryName: String = "",
+	val inCategoryId: Int? = null,
+	val inCategoryName: String? = null,
 	val currencyAmount: String = "",
 	val description: String = "",
 	val recordedTimestamp: Timestamp? = null,
 )
 
 /** helper translation fns */
-fun TransactionRecord.toTransactionInput(): TransactionInput {
-
+fun TransactionRecord.toTransactionInput(catName: String? = null): TransactionInput {
 	return TransactionInput(
 		id,
-		inCategoryName,
+		inCategoryId,
+		inCategoryName = catName,
 		"$currencyAmount",
 		description,
 		recordedTimestamp,
@@ -27,8 +28,8 @@ fun TransactionRecord.toTransactionInput(): TransactionInput {
 fun TransactionInput.toTransactionRecord(): TransactionRecord {
 	return TransactionRecord(
 		id ?: 0,
-		inCategoryName,
-		currencyAmount.toLong(),
+		inCategoryId!!,
+		currencyAmount.toFloat(),
 		recordedTimestamp ?: Timestamp(Date().time),
 		description,
 	)

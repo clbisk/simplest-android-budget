@@ -20,7 +20,7 @@ fun BudgetCategoryList(
 		contentPadding = contentPadding,
 		verticalArrangement = Arrangement.spacedBy(2.dp),
 		) {
-		lazyItems(items = budgetCategoryList, key = { it.categoryName }) {
+		lazyItems(items = budgetCategoryList, key = { it.id }) {
 			BudgetCategoryItem(it,
 				itemModifier = Modifier.clickable { onItemClick(it) }
 			)

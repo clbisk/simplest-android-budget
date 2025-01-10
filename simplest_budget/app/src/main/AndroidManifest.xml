@@ -41,6 +41,10 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".widget.newtransaction.AddTransactionActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

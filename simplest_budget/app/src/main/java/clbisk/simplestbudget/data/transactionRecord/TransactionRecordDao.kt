@@ -18,11 +18,11 @@ interface TransactionRecordDao {
 	@Query("SELECT * FROM transactionRecords")
 	fun getAllTransactions(): Flow<List<TransactionRecord>>
 
-	@Query("SELECT * FROM transactionRecords where inCategoryName = :categoryName")
-	fun getTransactionsForCategory(categoryName: String): Flow<List<TransactionRecord>>
+	@Query("SELECT * FROM transactionRecords where inCategoryId = :categoryId")
+	fun getTransactionsForCategory(categoryId: Int): Flow<List<TransactionRecord>>
 
-	@Query("SELECT SUM(currencyAmount) FROM transactionRecords where inCategoryName = :categoryName")
-	fun getTransactionTotalForCategory(categoryName: String): Flow<Long>
+	@Query("SELECT SUM(currencyAmount) FROM transactionRecords where inCategoryId = :categoryId")
+	fun getTransactionTotalForCategory(categoryId: Int): Flow<Float>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	suspend fun insert(category: TransactionRecord)

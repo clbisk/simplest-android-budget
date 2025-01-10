@@ -6,7 +6,7 @@
     android:minWidth="192dp"
     android:minHeight="40dp"
     android:previewImage="@drawable/example_appwidget_preview"
-    android:resizeMode="horizontal|vertical"
+    android:resizeMode="horizontal"
     android:targetCellWidth="2"
     android:targetCellHeight="1"
     android:updatePeriodMillis="86400000"

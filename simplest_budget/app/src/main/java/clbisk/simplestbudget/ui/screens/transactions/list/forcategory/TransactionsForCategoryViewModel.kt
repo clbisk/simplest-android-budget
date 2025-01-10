@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
+import clbisk.simplestbudget.ui.nav.args.NavArgs
 import clbisk.simplestbudget.ui.reusable.model.TransactionListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,26 +21,31 @@ class TransactionsForCategoryViewModel @Inject constructor(
 	categoryRepo: BudgetCategoriesRepository,
 	transactionsRepo: TransactionRecordsRepository,
 ) : ViewModel() {
-	/** read category name to be loaded from navigation input */
-	val nameArg: String = checkNotNull(savedStateHandle["categoryName"])
+	/** read category id to be loaded from navigation input */
+	private val catArg: String = checkNotNull(savedStateHandle[NavArgs.CAT_ID.name])
+	val catId = catArg.toInt()
 
 	/** get category details to display over transaction list */
 	val categoryData: StateFlow<BudgetCategory> =
-		categoryRepo.getCategory(nameArg).stateIn(
+		categoryRepo.getCategory(catId).stateIn(
 			scope = viewModelScope,
 			started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-			initialValue = BudgetCategory(nameArg, 0),
+			initialValue = BudgetCategory(
+				id = catId,
+				categoryName = "",
+				spendingLimit = 0f,
+			),
 		)
 
-	val transactionsTotalState: StateFlow<Long?> =
-		transactionsRepo.getTransactionTotalForCategory(nameArg).stateIn(
+	val transactionsTotalState: StateFlow<Float?> =
+		transactionsRepo.getTransactionTotalForCategory(catId).stateIn(
 			scope = viewModelScope,
 			started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
 			initialValue = null,
 		)
 
 	val transactionsListState: StateFlow<TransactionListState> =
-		transactionsRepo.getTransactionsForCategory(nameArg).map { TransactionListState(it) }
+		transactionsRepo.getTransactionsForCategory(catId).map { TransactionListState(it) }
 			.stateIn(
 				scope = viewModelScope,
 				started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),

@@ -19,19 +19,22 @@ import clbisk.simplestbudget.R
 
 @Composable
 fun SimpleCategorySelect(
-	onValueSelect: (String) -> Unit,
-	initialValue: String? = null,
+	onValueSelect: (Int, String) -> Unit,
+	enabled: Boolean = false,
+	initialValue: String = "",
 	viewModel: SimpleCategorySelectViewModel = hiltViewModel(),
 ) {
+	if (!enabled) return Box { TextField("...", {}, enabled = false) }
+
 	val categoryListState = viewModel.categoryListState.collectAsState()
 	val categoryList = categoryListState.value.categoryList ?: listOf()
 
 	var isMenuOpen by remember { mutableStateOf(false) }
-	var selectedCategory by remember { mutableStateOf(initialValue ?: "") }
+	var selectedCategoryName by remember { mutableStateOf(initialValue) }
 
 	Box {
 		TextField(
-			value = selectedCategory,
+			value = selectedCategoryName,
 			onValueChange = {},
 			enabled = false,
 			readOnly = true,
@@ -49,8 +52,8 @@ fun SimpleCategorySelect(
 				DropdownMenuItem(
 					text = { Text(it.categoryName) },
 					onClick = {
-						selectedCategory = it.categoryName
-						onValueSelect(it.categoryName)
+						selectedCategoryName = it.categoryName
+						onValueSelect(it.id, it.categoryName)
 						isMenuOpen = false
 					}
 				)

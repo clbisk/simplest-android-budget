@@ -13,17 +13,17 @@ import java.sql.Timestamp
 	foreignKeys = [
 		ForeignKey(
 			entity = BudgetCategory::class,
-			parentColumns = ["categoryName"],
-			childColumns = ["inCategoryName"],
+			parentColumns = ["categoryId"],
+			childColumns = ["inCategoryId"],
 		)
-	], indices = [Index("inCategoryName")]
+	], indices = [Index("inCategoryId")]
 )
 data class TransactionRecord(
 	@PrimaryKey(autoGenerate = true)
 	@ColumnInfo(name = "transactionRecordId")
 	val id: Int = 0,
-	val inCategoryName: String,
-	val currencyAmount: Long,
+	val inCategoryId: Int,
+	val currencyAmount: Float,
 	val recordedTimestamp: Timestamp,
 	val description: String = "",
 )

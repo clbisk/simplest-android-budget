@@ -6,11 +6,12 @@ import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
+import clbisk.simplestbudget.ui.nav.args.NavArgs
+import clbisk.simplestbudget.ui.reusable.model.CategoryEditState
 import clbisk.simplestbudget.ui.reusable.model.CategoryInput
 import clbisk.simplestbudget.ui.reusable.model.toBudgetCategory
 import clbisk.simplestbudget.ui.reusable.model.toCategoryInput
-import clbisk.simplestbudget.ui.reusable.model.CategoryEditState
-import clbisk.simplestbudget.ui.reusable.util.parseStringAsCurrencyLong
+import clbisk.simplestbudget.ui.reusable.util.parseStringAsCurrencyFloat
 import clbisk.simplestbudget.widget.data.WidgetModelRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +29,8 @@ class EditCategoryViewModel @Inject constructor(
 	private val transactionRecordsRepository: TransactionRecordsRepository,
 ) : ViewModel() {
 	/** read category name to be loaded from navigation input */
-	private val nameArg: String = checkNotNull(savedStateHandle["categoryName"])
+	private val categoryArg: String = checkNotNull(savedStateHandle[NavArgs.CAT_ID.name])
+	private val catId = categoryArg.toInt()
 	/** store original values of the specified category before edits */
 	private lateinit var initialBudgetCategory: BudgetCategory
 
@@ -36,7 +38,7 @@ class EditCategoryViewModel @Inject constructor(
 
 	init {
 		viewModelScope.launch {
-			initialBudgetCategory = categoryRepository.getCategory(nameArg)
+			initialBudgetCategory = categoryRepository.getCategory(catId)
 				.filterNotNull()
 				.first()
 
@@ -64,7 +66,7 @@ class EditCategoryViewModel @Inject constructor(
 	}
 
 	fun onLimitInputChange(limitStr: String) {
-		val limit = parseStringAsCurrencyLong(limitStr)
+		val limit = parseStringAsCurrencyFloat(limitStr)
 		if (limit != null) {
 			updateInput(inputState.value.input?.copy(spendingLimit = limit))
 		}
@@ -97,16 +99,15 @@ class EditCategoryViewModel @Inject constructor(
 				}
 
 				// send updates to widget
-				val prevWidgetCategory = initialBudgetCategory.categoryName
 				val spentThisMonth = transactionRecordsRepository
-					.getTransactionTotalForCategory(editedCategory.categoryName)
+					.getTransactionTotalForCategory(editedCategory.categoryId)
 					.first()
 
 				widgetRepository.updateBudgetForCategory(
+					categoryId = editedCategory.categoryId,
 					categoryName = editedCategory.categoryName,
 					limit = editedCategory.spendingLimit,
 					remaining = editedCategory.spendingLimit - spentThisMonth,
-					prevCategoryName = prevWidgetCategory,
 				)
 			}
 		}

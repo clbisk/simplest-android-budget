@@ -2,7 +2,6 @@ package clbisk.simplestbudget.widget.config
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.budgetCategory.OfflineBudgetCategoriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

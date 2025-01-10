@@ -4,6 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import clbisk.simplestbudget.ui.nav.args.RouteNavArgs
+import clbisk.simplestbudget.ui.nav.routes.START_DESTINATION
+import clbisk.simplestbudget.ui.nav.routes.TopLevelDestination
+import clbisk.simplestbudget.ui.nav.screens.AppScreens
 
 @Composable
 fun AppNavGraph() {
@@ -13,7 +17,7 @@ fun AppNavGraph() {
 		startDestination = START_DESTINATION.name,
 	) {
 		TopLevelDestination.entries.map { dest ->
-			val destArgs = NavArgs[dest.route] ?: listOf()
+			val destArgs = RouteNavArgs[dest.route] ?: listOf()
 			val argNames = if (destArgs.isNotEmpty()) {
 				val allNames = destArgs.map { "{${it.name}}" }
 				"/${allNames.joinToString(separator = "")}"

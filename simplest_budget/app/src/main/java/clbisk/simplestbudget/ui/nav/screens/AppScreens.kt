@@ -1,7 +1,9 @@
-package clbisk.simplestbudget.ui.nav
+package clbisk.simplestbudget.ui.nav.screens
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import clbisk.simplestbudget.ui.nav.routes.Route
+import clbisk.simplestbudget.ui.nav.routes.TopLevelDestination
 import clbisk.simplestbudget.ui.screens.budgetcategories.create.CreateBudgetCategoryScreen
 import clbisk.simplestbudget.ui.screens.budgetcategories.edit.EditBudgetCategoryScreen
 import clbisk.simplestbudget.ui.screens.home.HomeScreen
@@ -9,24 +11,14 @@ import clbisk.simplestbudget.ui.screens.transactions.create.CreateTransactionScr
 import clbisk.simplestbudget.ui.screens.transactions.edit.EditTransactionScreen
 import clbisk.simplestbudget.ui.screens.transactions.list.forcategory.TransactionsForCategoryScreen
 
-fun navTo(toDest: TopLevelDestination, navController: NavController): (args: List<String>?) -> Unit = {
-	args ->
-		val routeName =
-			if (NavArgs[toDest.route]?.isEmpty() == false)
-				"${toDest.name}/${args!!.joinToString(separator = ",")}"
-			else toDest.name
-
-		navController.navigate(routeName)
-}
-
 val AppScreens: Map<Route, @Composable (navController: NavController) -> Unit> = mapOf(
 	Route.Home to {
 		HomeScreen(
 			navToCreateCategory = {
-				navTo(TopLevelDestination.CreateCategory, it)(null)
+				navTo(TopLevelDestination.CREATE_CAT, it)(null)
 		    },
 			navToTransactionsList = {
-				cat -> navTo(TopLevelDestination.TransactionsForCat, it)(listOf(cat))
+				cat -> navTo(TopLevelDestination.TRANSACTIONS_FOR_CAT, it)(listOf("$cat"))
 			},
 		)
 	},
@@ -40,13 +32,13 @@ val AppScreens: Map<Route, @Composable (navController: NavController) -> Unit> =
 	Route.TransactionsForCat to {
 		 TransactionsForCategoryScreen(
 			navToEditCategory = {
-				cat -> navTo(TopLevelDestination.EditCategory, it)(listOf(cat))
+				cat -> navTo(TopLevelDestination.EDIT_CAT, it)(listOf("$cat"))
 			},
 			navToEditTransactionRecord = {
-				id -> navTo(TopLevelDestination.EditCategory, it)(listOf("$id"))
+				id -> navTo(TopLevelDestination.EDIT_TRANSACTION, it)(listOf("$id"))
 			},
 			navToCreateTransaction = {
-				cat -> navTo(TopLevelDestination.CreateTransaction, it)(listOf(cat))
+				cat -> navTo(TopLevelDestination.CREATE_TRANSACTION, it)(listOf("$cat"))
 			},
 		)
 	},
