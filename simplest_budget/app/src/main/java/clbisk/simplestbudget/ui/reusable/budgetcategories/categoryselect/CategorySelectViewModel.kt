@@ -3,7 +3,7 @@ package clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
-import clbisk.simplestbudget.ui.reusable.budgetcategories.list.CategoryListState
+import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -11,6 +11,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+
+data class CategoryListState(
+	val categoryList: List<BudgetCategory>? = null,
+	val filteredList: List<BudgetCategory>? = null,
+)
 
 @HiltViewModel
 class CategorySelectViewModel @Inject constructor(

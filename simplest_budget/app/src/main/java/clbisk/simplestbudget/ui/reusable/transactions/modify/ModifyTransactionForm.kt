@@ -2,12 +2,11 @@ package clbisk.simplestbudget.ui.reusable.transactions.modify
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import clbisk.simplestbudget.R
 import clbisk.simplestbudget.ui.reusable.util.getDeviceCurrencySymbol
@@ -33,9 +33,6 @@ fun ModifyTransactionForm (
 	val input = inputState.value.input
 	val shouldEnableEdits = !inputState.value.loading
 
-	val styleModifier = Modifier.padding(paddingValues)
-		.height(IntrinsicSize.Max).width(IntrinsicSize.Max)
-
 	fun save() {
 		coroutineScope.launch {
 			viewModel.saveTransaction()
@@ -44,13 +41,15 @@ fun ModifyTransactionForm (
 	}
 
 	Column(
-		modifier = styleModifier,
+		modifier = Modifier.padding(paddingValues).fillMaxSize(),
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Row {
+		Row(
+			modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp),
+		) {
 			Column(
-				modifier = styleModifier,
+				modifier = Modifier.fillMaxWidth(),
 				verticalArrangement = Arrangement.Center,
 				horizontalAlignment = Alignment.CenterHorizontally,
 			) {

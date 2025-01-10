@@ -39,7 +39,7 @@ fun LazyLoadCategoryCard(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = maybeFormatCurrency(spendingLimit) ?: stringResource(R.string.indicate_loading_text),
+					text = "Budget: ${maybeFormatCurrency(spendingLimit) ?: stringResource(R.string.indicate_loading_text)}",
 					style = MaterialTheme.typography.titleMedium
 				)
 			}
@@ -47,7 +47,7 @@ fun LazyLoadCategoryCard(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = maybeFormatCurrency(transactionTotal) ?: stringResource(R.string.indicate_loading_text),
+					text = "Spent: ${maybeFormatCurrency(transactionTotal) ?: stringResource(R.string.indicate_loading_text)}",
 					style = MaterialTheme.typography.titleMedium
 				)
 			}

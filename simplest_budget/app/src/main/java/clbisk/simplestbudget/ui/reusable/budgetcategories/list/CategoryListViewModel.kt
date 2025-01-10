@@ -4,16 +4,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
+import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-data class CategoryListState(
-	val categoryList: List<BudgetCategory>? = null,
-	val filteredList: List<BudgetCategory>? = null,
+data class BudgetCategoryState(
+	val category: BudgetCategory? = null,
+	val transactionTotal: Float? = null,
+)
+
+data class SummedCategoryListState(
+	val categoryList: List<BudgetCategoryState>? = null,
+	val filteredList: List<BudgetCategoryState>? = null,
 )
 
 /**
@@ -21,14 +28,23 @@ data class CategoryListState(
  */
 @HiltViewModel
 class CategoryListViewModel @Inject constructor(
-	budgetCategoriesRepository: BudgetCategoriesRepository
+	budgetCategoriesRepository: BudgetCategoriesRepository,
+	transactionsRepository: TransactionRecordsRepository,
 ) : ViewModel() {
-	val categoryListState: StateFlow<CategoryListState> =
-		budgetCategoriesRepository.getAllCategories().map { CategoryListState(it) }
+	val categoryListState: StateFlow<SummedCategoryListState> =
+		budgetCategoriesRepository.getAllCategories().map { allCategories ->
+			val categoryStates = allCategories.map {
+				val transactionTotal =
+					transactionsRepository.getTransactionTotalForCategory(it.id).first()
+				BudgetCategoryState(it, transactionTotal)
+			}
+
+			SummedCategoryListState(categoryStates)
+		}
 			.stateIn(
 				scope = viewModelScope,
 				started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-				initialValue = CategoryListState()
+				initialValue = SummedCategoryListState()
 			)
 
 	companion object {

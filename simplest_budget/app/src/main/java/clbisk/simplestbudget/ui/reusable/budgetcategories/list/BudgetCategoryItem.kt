@@ -10,14 +10,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import clbisk.simplestbudget.R
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.reusable.util.formatCurrency
+import clbisk.simplestbudget.ui.reusable.util.maybeFormatCurrency
 
 @Composable
 fun BudgetCategoryItem(
 	category: BudgetCategory,
 	itemModifier: Modifier,
+	transactionTotal: Float? = null,
 ) {
 	Card(
 		modifier = itemModifier
@@ -37,10 +40,17 @@ fun BudgetCategoryItem(
 				modifier = Modifier.fillMaxWidth()
 			) {
 				Text(
-					text = formatCurrency(category.spendingLimit),
+					text = "Budget: ${formatCurrency(category.spendingLimit)}",
 					style = MaterialTheme.typography.titleMedium
 				)
-//				Spacer(Modifier.weight(1f))
+			}
+			Row(
+				modifier = Modifier.fillMaxWidth()
+			) {
+				Text(
+					text = "Spent: ${maybeFormatCurrency(transactionTotal) ?: stringResource(R.string.indicate_loading_text)}",
+					style = MaterialTheme.typography.titleMedium
+				)
 			}
 		}
 	}

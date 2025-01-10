@@ -2,12 +2,9 @@ package clbisk.simplestbudget.widget.newtransaction
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -17,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import clbisk.simplestbudget.R
 import clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect.SimpleCategorySelect
@@ -25,7 +23,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun WidgetAddTransactionForm (
-	paddingValues: PaddingValues,
 	navAway: () -> Unit,
 	viewModel: WidgetAddTransactionViewModel = hiltViewModel(),
 ) {
@@ -34,9 +31,6 @@ fun WidgetAddTransactionForm (
 	val inputState = viewModel.inputState.collectAsState()
 	val input = inputState.value.input
 	val enableEdits = !inputState.value.loading
-
-	val styleModifier = Modifier.padding(paddingValues)
-		.height(IntrinsicSize.Max).width(IntrinsicSize.Max)
 
 	/** get local currency icon for currency input prompt */
 	val symbol = getDeviceCurrencySymbol()
@@ -50,49 +44,48 @@ fun WidgetAddTransactionForm (
 		}
 	}
 
-	Column(
-		modifier = styleModifier,
-		verticalArrangement = Arrangement.Center,
-		horizontalAlignment = Alignment.CenterHorizontally,
+	Row (
+		modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp),
+		verticalAlignment = Alignment.CenterVertically,
+		horizontalArrangement = Arrangement.Center,
 	) {
-		Row {
-			Column(
-				modifier = styleModifier,
-				verticalArrangement = Arrangement.Center,
-				horizontalAlignment = Alignment.CenterHorizontally,
-			) {
-				SimpleCategorySelect(
-					onValueSelect = viewModel::updateCategory,
-					enabled = enableEdits,
-					initialValue = input.inCategoryName ?: "",
-				)
+		Column(
+			modifier = Modifier.fillMaxWidth(),
+			verticalArrangement = Arrangement.Center,
+			horizontalAlignment = Alignment.CenterHorizontally,
+		) {
+			SimpleCategorySelect(
+				onValueSelect = viewModel::updateCategory,
+				enabled = enableEdits,
+				initialValue = input.inCategoryName ?: "",
+			)
 
-				Row {
-					TextField(
-						value = input.currencyAmount,
-						onValueChange = { updateAmount(it) },
-						enabled = enableEdits,
-						label = { Text("Amount") },
-						leadingIcon = { Text(symbol) },
-					)
-				}
-				Row {
-					TextField(
-						value = input.description,
-						onValueChange = { updateDescription(it) },
-						enabled = enableEdits,
-						label = { Text("Description (optional)") },
-					)
-				}
+			Row {
+				TextField(
+					value = input.currencyAmount,
+					onValueChange = { updateAmount(it) },
+					enabled = enableEdits,
+					label = { Text("Amount") },
+					leadingIcon = { Text(symbol) },
+				)
+			}
+			Row {
+				TextField(
+					value = input.description,
+					onValueChange = { updateDescription(it) },
+					enabled = enableEdits,
+					label = { Text("Description (optional)") },
+					minLines = 5,
+				)
 			}
 		}
+	}
 
-		Row {
-			FilledTonalButton(
-				onClick = { save() },
-			) {
-				Text(stringResource(R.string.save_button_text))
-			}
+	Row {
+		FilledTonalButton(
+			onClick = { save() },
+		) {
+			Text(stringResource(R.string.save_button_text))
 		}
 	}
 }

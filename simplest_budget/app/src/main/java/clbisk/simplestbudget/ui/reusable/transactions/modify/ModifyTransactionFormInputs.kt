@@ -41,6 +41,7 @@ fun ModifyTransactionFormInputs(
 			onValueChange = updateDescription,
 			enabled = enabled,
 			label = { Text("Description (optional)") },
+			minLines = 5,
 		)
 	}
 }

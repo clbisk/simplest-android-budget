@@ -28,19 +28,22 @@ fun TransactionRecordItem(
 			Row(
 				modifier = Modifier.fillMaxWidth()
 			) {
-				Text(
-					text = formatCurrency(transaction.currencyAmount),
-					style = MaterialTheme.typography.bodyLarge
-				)
+				Column {
+					Text(
+						text = formatCurrency(transaction.currencyAmount),
+						style = MaterialTheme.typography.bodyLarge
+					)
+				}
+//				Column(
+//					horizontalAlignment = Alignment.End,
+//				) {
+//					Text(
+//						text = formatTimestamp(transaction.recordedTimestamp),
+//						style = MaterialTheme.typography.bodyLarge
+//					)
+//				}
 			}
-			Row(
-				modifier = Modifier.fillMaxWidth()
-			) {
-				Text(
-					text = transaction.description,
-					style = MaterialTheme.typography.bodyMedium
-				)
-			}
+			TransactionDescription()
 		}
 	}
 }

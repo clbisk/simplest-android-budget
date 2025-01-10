@@ -12,7 +12,7 @@ import androidx.compose.foundation.lazy.items as lazyItems
 
 @Composable
 fun BudgetCategoryList(
-	budgetCategoryList: List<BudgetCategory>,
+	budgetCategoryList: List<BudgetCategoryState>,
 	onItemClick: (BudgetCategory) -> Unit,
 	contentPadding: PaddingValues,
 ) {
@@ -20,9 +20,11 @@ fun BudgetCategoryList(
 		contentPadding = contentPadding,
 		verticalArrangement = Arrangement.spacedBy(2.dp),
 		) {
-		lazyItems(items = budgetCategoryList, key = { it.id }) {
-			BudgetCategoryItem(it,
-				itemModifier = Modifier.clickable { onItemClick(it) }
+		lazyItems(items = budgetCategoryList, key = { it.category!!.id }) {
+			BudgetCategoryItem(
+				category = it.category!!,
+				itemModifier = Modifier.clickable { onItemClick(it.category) },
+				transactionTotal = it.transactionTotal
 			)
 		}
 	}

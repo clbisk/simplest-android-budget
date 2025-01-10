@@ -3,7 +3,6 @@ package clbisk.simplestbudget.ui.reusable.budgetcategories.categoryselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
-import clbisk.simplestbudget.ui.reusable.budgetcategories.list.CategoryListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

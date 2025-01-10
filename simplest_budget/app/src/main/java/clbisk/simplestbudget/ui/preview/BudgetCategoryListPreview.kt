@@ -19,13 +19,14 @@ import androidx.compose.ui.unit.dp
 import clbisk.simplestbudget.R
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryList
+import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryState
 
 val PREVIEW_CATEGORIES = listOf(
-	BudgetCategory(1, "Hi", 100.toFloat()),
-	BudgetCategory(2, "Bye", 1000.toFloat()),
+	BudgetCategoryState(BudgetCategory(1, "Hi", 100.toFloat()), 1f),
+	BudgetCategoryState(BudgetCategory(2, "Bye", 1000.toFloat()), 2f),
 )
 
-val LocalPreviewMode: ProvidableCompositionLocal<List<BudgetCategory>> = compositionLocalOf { listOf() }
+val LocalPreviewMode: ProvidableCompositionLocal<List<BudgetCategoryState>> = compositionLocalOf { listOf() }
 
 @Preview
 @Composable

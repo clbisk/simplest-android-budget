@@ -18,4 +18,6 @@
     <string name="indicate_loading_text">…</string>
     <string name="arrow_right_icon">right arrow icon</string>
     <string name="arrow_down_icon">down arrow icon</string>
+    <string name="category_name_input_label">Category Name</string>
+    <string name="category_budget_input_label">Amount Budgeted</string>
 </resources>
