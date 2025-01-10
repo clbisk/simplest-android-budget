@@ -1,7 +1,6 @@
 package clbisk.simplestbudget.ui.reusable.transactions.modify
 
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecord
-import java.sql.Timestamp
 import java.util.Date
 
 data class TransactionInput(
@@ -10,7 +9,7 @@ data class TransactionInput(
 	val inCategoryName: String? = null,
 	val currencyAmount: String = "",
 	val description: String = "",
-	val recordedTimestamp: Timestamp? = null,
+	val recordedTimestamp: String? = null,
 )
 
 /** helper translation fns */
@@ -30,7 +29,7 @@ fun TransactionInput.toTransactionRecord(): TransactionRecord {
 		id ?: 0,
 		inCategoryId!!,
 		currencyAmount.toFloat(),
-		recordedTimestamp ?: Timestamp(Date().time),
+		recordedTimestamp ?: "${Date()}",
 		description,
 	)
 }

@@ -23,3 +23,5 @@
 hs_err_pid*
 replay_pid*
 deployment_cert.der
+keystore
+.DS_Store

@@ -6,7 +6,6 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
-import java.sql.Timestamp
 
 /** single transaction record in db */
 @Entity(tableName = "transactionRecords",
@@ -24,6 +23,6 @@ data class TransactionRecord(
 	val id: Int = 0,
 	val inCategoryId: Int,
 	val currencyAmount: Float,
-	val recordedTimestamp: Timestamp,
+	val recordedTimestamp: String,
 	val description: String = "",
 )

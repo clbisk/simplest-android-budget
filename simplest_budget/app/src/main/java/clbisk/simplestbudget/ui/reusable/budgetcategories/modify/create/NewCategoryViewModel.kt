@@ -22,9 +22,7 @@ class NewCategoryViewModel @Inject constructor(
 	val isValid: LiveData<Boolean> = _inputValid
 
 	fun onNameUpdate(name: String) {
-		if (name.isNotBlank()) {
-			_nameInput.value = name
-		}
+		_nameInput.value = name
 		_inputValid.value = validateInput()
 	}
 

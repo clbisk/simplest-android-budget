@@ -17,7 +17,7 @@ import clbisk.simplestbudget.widget.data.WidgetModelDao
 		TransactionRecord::class,
 		WidgetModel::class,
    ],
-	version = 9,
+	version = 10,
 	exportSchema = false,
 )
 @TypeConverters(TimestampConverters::class)
