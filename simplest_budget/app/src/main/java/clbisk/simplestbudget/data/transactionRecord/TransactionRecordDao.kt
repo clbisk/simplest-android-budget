@@ -18,10 +18,10 @@ interface TransactionRecordDao {
 	@Query("SELECT * FROM transactionRecords")
 	fun getAllTransactions(): Flow<List<TransactionRecord>>
 
-	@Query("SELECT * FROM transactionRecords where inCategoryId = :categoryId")
+	@Query("SELECT * FROM transactionRecords WHERE (inCategoryId = :categoryId AND recordedTimestamp >= (SELECT unixepoch('now','start of month','subsec')) AND recordedTimestamp < (SELECT unixepoch('now','+1 month','start of month','subsec')))")
 	fun getTransactionsForCategory(categoryId: Int): Flow<List<TransactionRecord>>
 
-	@Query("SELECT SUM(currencyAmount) FROM transactionRecords where inCategoryId = :categoryId")
+	@Query("SELECT SUM(currencyAmount) FROM transactionRecords WHERE (inCategoryId = :categoryId AND recordedTimestamp >= (SELECT unixepoch('now','start of month','subsec')) AND recordedTimestamp < (SELECT unixepoch('now','+1 month','start of month','subsec')))")
 	fun getTransactionTotalForCategory(categoryId: Int): Flow<Float>
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)

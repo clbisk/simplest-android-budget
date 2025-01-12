@@ -4,8 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -38,21 +36,20 @@ fun TransactionsForCategoryListContainer (
 		Column(
 			modifier = Modifier.padding(paddingValues),
 		) {
-			Row {
+			Row(
+				modifier = Modifier.padding(bottom = 0.dp)
+			) {
 				LazyLoadCategoryCard(
 					categoryName = categoryState.value.categoryName,
 					modifier = Modifier
-						.padding(paddingValues)
 						.clickable { navToEditCategory(viewModel.catId) },
 					spendingLimit = categoryState.value.spendingLimit,
 					transactionTotal = transactionTotal.value,
 				)
 			}
 
-			Spacer(Modifier.height(2.dp))
-
 			Row(
-				modifier = Modifier.padding(paddingValues),
+				modifier = Modifier.padding(bottom = 0.dp),
 				horizontalArrangement = Arrangement.Center,
 			) {
 				TransactionListContainer(

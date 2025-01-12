@@ -38,7 +38,7 @@ fun TransactionListContainer(
 			TransactionList(
 				transactionList,
 				onTransactionClick = { navToEditTransaction(it.id)},
-				contentPadding,
+				contentPadding = contentPadding,
 			)
 		}
 	}

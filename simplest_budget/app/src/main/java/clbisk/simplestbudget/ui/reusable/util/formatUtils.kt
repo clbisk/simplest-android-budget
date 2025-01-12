@@ -5,10 +5,8 @@ import android.icu.number.NumberFormatter
 import android.icu.number.Precision
 import android.icu.text.NumberFormat
 import android.icu.util.Currency
-import java.sql.Timestamp
-import java.time.LocalDate
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 fun getDeviceLocale(): Locale = Resources.getSystem().configuration.locales[0]
@@ -35,7 +33,7 @@ fun parseStringAsCurrencyFloat(str: String): Float? {
 		.format(currencyFloat).toBigDecimal().toFloat()
 }
 
-fun formatTimestamp(timestamp: Timestamp): String {
-	val dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
-	return LocalDate.ofInstant(timestamp.toInstant(), ZoneOffset.systemDefault()).format(dateFormatter)
+fun formatTimestamp(timestamp: String): String {
+	val dateFormatter = DateTimeFormatter.ofPattern("E MMM dd -- HH:mm")
+	return Date(timestamp.toLong()).toString()
 }

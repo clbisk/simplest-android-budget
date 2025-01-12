@@ -29,7 +29,7 @@ fun TransactionInput.toTransactionRecord(): TransactionRecord {
 		id ?: 0,
 		inCategoryId!!,
 		currencyAmount.toFloat(),
-		recordedTimestamp ?: "${Date()}",
+		recordedTimestamp ?: "${Date().time}",
 		description,
 	)
 }
