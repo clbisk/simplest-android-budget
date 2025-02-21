@@ -1,6 +1,7 @@
 package clbisk.simplestbudget.widget.config
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.ui.reusable.budgetcategories.list.BudgetCategoryItem
@@ -26,14 +28,17 @@ fun WidgetConfigContent(
 	LazyColumn(
 		modifier = Modifier.fillMaxSize(),
 		contentPadding = contentPadding,
+		verticalArrangement = Arrangement.spacedBy(2.dp)
 	) {
-		items(categoryList) {
-			BudgetCategoryItem(it,
+		items(items = categoryList, key = { it.category!!.id }) {
+			BudgetCategoryItem(
+				category = it.category!!,
+				transactionTotal = it.transactionTotal,
 				itemModifier = Modifier.clickable {
 					onCategoryClick(
 						appWidgetId,
-						it,
-						it.spendingLimit,
+						it.category,
+						it.category.spendingLimit,
 					)
 				}
 			)

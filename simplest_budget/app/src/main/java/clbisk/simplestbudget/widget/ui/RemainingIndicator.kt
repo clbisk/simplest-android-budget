@@ -11,6 +11,7 @@ import androidx.glance.layout.padding
 import androidx.glance.layout.wrapContentHeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+import clbisk.simplestbudget.ui.reusable.util.formatCurrency
 
 @Composable
 fun RemainingIndicator(
@@ -23,13 +24,13 @@ fun RemainingIndicator(
 	) {
 		Text("remaining: ", style = TextStyle(fontSize = 15.sp))
 		Text(
-			"$moneyIcon $remainingAmount /",
+			"$moneyIcon ${formatCurrency(remainingAmount)} /",
 			style = TextStyle(
 				color = GlanceTheme.colors.onSurface,
 				fontSize = 20.sp,
 			),
 			modifier = GlanceModifier.padding(end = 5.dp),
 		)
-		Text("$moneyIcon$limit", style = TextStyle(fontSize = 12.sp))
+		Text("$moneyIcon${formatCurrency(limit)}", style = TextStyle(fontSize = 12.sp))
 	}
 }

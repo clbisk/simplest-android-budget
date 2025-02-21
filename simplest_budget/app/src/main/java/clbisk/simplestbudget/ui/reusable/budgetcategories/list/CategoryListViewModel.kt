@@ -3,7 +3,6 @@ package clbisk.simplestbudget.ui.reusable.budgetcategories.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import clbisk.simplestbudget.data.budgetCategory.BudgetCategoriesRepository
-import clbisk.simplestbudget.data.budgetCategory.BudgetCategory
 import clbisk.simplestbudget.data.transactionRecord.TransactionRecordsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,16 +11,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
-data class BudgetCategoryState(
-	val category: BudgetCategory? = null,
-	val transactionTotal: Float? = null,
-)
-
-data class SummedCategoryListState(
-	val categoryList: List<BudgetCategoryState>? = null,
-	val filteredList: List<BudgetCategoryState>? = null,
-)
 
 /**
  * retrieves the items in the Room database

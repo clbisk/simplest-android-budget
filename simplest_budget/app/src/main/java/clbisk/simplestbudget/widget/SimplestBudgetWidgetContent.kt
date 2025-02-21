@@ -6,8 +6,10 @@ import androidx.glance.layout.Box
 import androidx.glance.text.Text
 import clbisk.simplestbudget.widget.data.WidgetModel
 import clbisk.simplestbudget.widget.data.WidgetModelRepository
+import clbisk.simplestbudget.widget.data.WidgetState.Empty
 import clbisk.simplestbudget.widget.data.WidgetState.Loading
 import clbisk.simplestbudget.widget.ui.BudgetAtAGlance
+import clbisk.simplestbudget.widget.ui.ZeroState
 
 @Composable
 fun SimplestBudgetWidgetContent(
@@ -18,6 +20,11 @@ fun SimplestBudgetWidgetContent(
 		is WidgetModel -> {
 			BudgetAtAGlance(model)
 		}
-		else -> Box { Text("Loading...") }
+		is Loading -> {
+			Box { Text("Loading...") }
+		}
+		is Empty -> {
+			ZeroState()
+		}
 	}
 }

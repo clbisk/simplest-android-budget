@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import clbisk.simplestbudget.ui.reusable.transactions.modify.ModifyTransactionForm
 
 @Composable
 fun WidgetAddTransactionActivityScreen(
@@ -22,8 +23,9 @@ fun WidgetAddTransactionActivityScreen(
 			verticalArrangement = Arrangement.Center,
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
-			WidgetAddTransactionForm(
-				navAway,
+			ModifyTransactionForm(
+				navAway = navAway,
+				paddingValues = padding,
 			)
 		}
 	}
