@@ -25,3 +25,4 @@ replay_pid*
 deployment_cert.der
 keystore
 .DS_Store
+.idea/caches/deviceStreaming.xml
